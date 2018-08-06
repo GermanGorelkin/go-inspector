@@ -1,37 +1,43 @@
-package go_inspector
+package inspector
 
 import (
-	"net/url"
-	"net/http"
-	"io"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+	"mime/multipart"
+	"net/http"
+	"net/url"
 )
 
 type Client struct {
 	Instance   *url.URL
-	APIKey string
-
+	APIKey     string
 	httpClient *http.Client
+
+	Image *ImageService
 }
 
-type ClintConf struct{
-	Instance   *url.URL
-	APIKey string
+type ClintConf struct {
+	Instance *url.URL
+	APIKey   string
 }
 
-func NewClient(cfg ClintConf) *Client{
-	return &Client{
+func NewClient(cfg ClintConf) *Client {
+	c := &Client{
 		APIKey:     cfg.APIKey,
 		Instance:   cfg.Instance,
 		httpClient: http.DefaultClient,
 	}
+	c.Image = &ImageService{client: c}
+
+	return c
 }
 
 func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
 	rel := &url.URL{Path: path}
 	u := c.Instance.ResolveReference(rel)
+
 	var buf io.ReadWriter
 	if body != nil {
 		buf = new(bytes.Buffer)
@@ -50,6 +56,37 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
 	return req, nil
 }
+
+func (c *Client) newRequestFormFile(path string, r io.Reader, filename string) (*http.Request, error) {
+	bodyBuf := &bytes.Buffer{}
+	bodyWriter := multipart.NewWriter(bodyBuf)
+
+	fileWriter, err := bodyWriter.CreateFormFile("datafile", filename)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = io.Copy(fileWriter, r)
+	if err != nil {
+		return nil, err
+	}
+
+	contentType := bodyWriter.FormDataContentType()
+	bodyWriter.Close()
+
+	rel := &url.URL{Path: path}
+	u := c.Instance.ResolveReference(rel)
+
+	req, err := http.NewRequest("POST", u.String(), bodyBuf)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
+	return req, nil
+}
+
 func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
