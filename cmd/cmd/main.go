@@ -23,7 +23,7 @@ func main() {
 
 	inst, err := url.Parse(instance)
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
 	cfg := inspector.ClintConf{
 		APIKey:   apiKey,
@@ -31,14 +31,27 @@ func main() {
 	}
 	c := inspector.NewClient(cfg)
 
-	f, err := os.Open("C://Users//gg//Desktop//hotfield_4e9a6589b0c0ad6a1533543806228.jpg")
-	if err != nil {
-		log.Panic(err)
+	//f, err := os.Open("C://Users//gg//Desktop//hotfield_4e9a6589b0c0ad6a1533543806228.jpg")
+	//if err != nil {
+	//	log.Panic(err)
+	//}
+	//defer f.Close()
+
+	//Uploads
+	//u, err := c.Image.Uploads(f, f.Name())
+	//if err != nil {
+	//	log.Print(err)
+	//}
+	//log.Printf("%+v", u)
+
+	// Recognize
+	recreq := &inspector.RecognizeRequest{
+		Images:      []int{4973284},
+		ReportTypes: []string{inspector.ReportFACING_COUN, inspector.ReportPRICE_TAGS},
 	}
-	defer f.Close()
-	u, err := c.Image.Uploads(f, f.Name())
+	recres, err := c.Recognize.Recognize(recreq)
 	if err != nil {
 		log.Print(err)
 	}
-	log.Printf("%+v", u)
+	log.Printf("%+v", recres)
 }

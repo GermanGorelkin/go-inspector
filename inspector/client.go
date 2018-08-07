@@ -15,7 +15,8 @@ type Client struct {
 	APIKey     string
 	httpClient *http.Client
 
-	Image *ImageService
+	Image     *ImageService
+	Recognize *RecognizeService
 }
 
 type ClintConf struct {
@@ -30,6 +31,7 @@ func NewClient(cfg ClintConf) *Client {
 		httpClient: http.DefaultClient,
 	}
 	c.Image = &ImageService{client: c}
+	c.Recognize = &RecognizeService{client: c}
 
 	return c
 }
@@ -54,6 +56,8 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 		req.Header.Set("Content-Type", "application/json")
 	}
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
+	//dump, err := httputil.DumpRequest(req, true)
+	//fmt.Println(string(dump))
 	return req, nil
 }
 
@@ -93,6 +97,10 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	//dump, err := httputil.DumpResponse(resp, true)
+	//fmt.Println(string(dump))
+
 	err = json.NewDecoder(resp.Body).Decode(v)
 	return resp, err
 }
