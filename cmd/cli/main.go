@@ -56,16 +56,22 @@ func main() {
 	//log.Printf("%+v", recres)
 
 	// Report
-	report, err := c.Report.GetReport(14621)
+	//report, err := c.Report.GetReport(14621)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//
+	//r, err := c.Report.ToPriceTags(report.Json)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//log.Printf("%+v\n", r)
+
+	report, err := c.Report.GetReport(14622)
 	if err != nil {
 		log.Println(err)
 	}
-	//log.Printf("%+v\n", report)
-	//for _,r := range report.Json{
-	//	log.Printf("%+v\n", r)
-	//}
-
-	r, err := c.Report.ToPriceTags(report.Json)
+	r, err := c.Report.ToFacingCount(report.Json)
 	if err != nil {
 		log.Println(err)
 	}

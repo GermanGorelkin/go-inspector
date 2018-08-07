@@ -39,9 +39,14 @@ type ReportPriceTagsJson struct {
 	Price        float64 `json:"price"`
 	Name         string  `json:"name"`
 	Category     string  `json:"category,omitempty"`
-	SkuImageUrl  string  `json:"sku_image_url"`
+	SkuImageUrl  string  `json:"sku_image_url" mapstructure:"sku_image_url"`
 	Promo        string  `json:"promo"`
-	SkuId        int     `json:"sku_id"`
+	SkuId        int     `json:"sku_id" mapstructure:"sku_id"`
+}
+
+type ReportFacingCountJson struct {
+	Count int `json:"count"`
+	SkuId int `json:"sku_id" mapstructure:"sku_id"`
 }
 
 func (srv *ReportService) GetReport(id int) (*Report, error) {
@@ -61,7 +66,13 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 }
 
 func (srv *ReportService) ToPriceTags(v []map[string]interface{}) ([]ReportPriceTagsJson, error) {
-	var pt []ReportPriceTagsJson
-	err := mapstructure.Decode(v, &pt)
-	return pt, err
+	var r []ReportPriceTagsJson
+	err := mapstructure.Decode(v, &r)
+	return r, err
+}
+
+func (srv *ReportService) ToFacingCount(v []map[string]interface{}) ([]ReportFacingCountJson, error) {
+	var r []ReportFacingCountJson
+	err := mapstructure.Decode(v, &r)
+	return r, err
 }
