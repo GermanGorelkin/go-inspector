@@ -17,6 +17,7 @@ type Client struct {
 
 	Image     *ImageService
 	Recognize *RecognizeService
+	Report    *ReportService
 }
 
 type ClintConf struct {
@@ -32,6 +33,7 @@ func NewClient(cfg ClintConf) *Client {
 	}
 	c.Image = &ImageService{client: c}
 	c.Recognize = &RecognizeService{client: c}
+	c.Report = &ReportService{client: c}
 
 	return c
 }

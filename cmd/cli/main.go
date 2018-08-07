@@ -40,18 +40,34 @@ func main() {
 	//Uploads
 	//u, err := c.Image.Uploads(f, f.Name())
 	//if err != nil {
-	//	log.Print(err)
+	//	log.Println(err)
 	//}
 	//log.Printf("%+v", u)
 
 	// Recognize
-	recreq := &inspector.RecognizeRequest{
-		Images:      []int{4973284},
-		ReportTypes: []string{inspector.ReportFACING_COUN, inspector.ReportPRICE_TAGS},
-	}
-	recres, err := c.Recognize.Recognize(recreq)
+	//recreq := &inspector.RecognizeRequest{
+	//	Images:      []int{4973284},
+	//	ReportTypes: []string{inspector.ReportTypeFACING_COUNT, inspector.ReportTypePRICE_TAGS},
+	//}
+	//recres, err := c.Recognize.Recognize(recreq)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//log.Printf("%+v", recres)
+
+	// Report
+	report, err := c.Report.GetReport(14621)
 	if err != nil {
-		log.Print(err)
+		log.Println(err)
 	}
-	log.Printf("%+v", recres)
+	//log.Printf("%+v\n", report)
+	//for _,r := range report.Json{
+	//	log.Printf("%+v\n", r)
+	//}
+
+	r, err := c.Report.ToPriceTags(report.Json)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Printf("%+v\n", r)
 }
