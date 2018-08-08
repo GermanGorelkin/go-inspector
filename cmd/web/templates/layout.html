@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title>Recognize</title>
+</head>
+<body>
+<div class="container">
+
+    <form enctype="multipart/form-data" action="/" method="POST">
+        <div class="form-group">
+            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+            <input name="uploadfile" type="file" class="form-control-file" />
+            <input type="submit" value="Отправить файл" class="btn btn-success" />
+        </div>
+    </form>
+
+    <h5><a href="https://henkel.inspector-cloud.ru/portal/beta/visit/{{.Visit}}?tab=1">https://henkel.inspector-cloud.ru/portal/beta/visit/{{.Visit}}?tab=1</a><h5>
+
+    <h3>FACING_COUNT</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>SkuId</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .ReportFacingCountJson}}
+            <tr>
+                <td>{{.SkuId}}</td>
+                <td>{{.Count}}</td>
+            </tr>
+        {{end}}
+        </tbody>
+    </table>
+
+        <h3>PRICE_TAGS</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Manufacturer</th>
+                <th>Price</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>SkuImageUrl</th>
+                <th>Promo</th>
+                <th>SkuId</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .ReportPriceTagsJson}}
+            <tr>
+                <td>{{.Brand}}</td>
+                <td>{{.Manufacturer}}</td>
+                <td>{{.Price}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Category}}</td>
+                <td>{{.SkuImageUrl}}</td>
+                <td>{{.Promo}}</td>
+                <td>{{.SkuId}}</td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+
+</div>
+</body>
+</html>
