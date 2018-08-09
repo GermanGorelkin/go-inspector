@@ -38,11 +38,17 @@ func main() {
 	//defer f.Close()
 
 	//Uploads
-	//u, err := c.Image.Uploads(f, f.Name())
+	//u, err := c.Image.Upload(f, f.Name())
 	//if err != nil {
 	//	log.Println(err)
 	//}
 	//log.Printf("%+v", u)
+
+	u, err := c.Image.UploadByURL("http://136.243.37.108:56790/20180711/hotfield_a61705e72302ce581531305685612.jpg")
+	if err != nil {
+		log.Println(err)
+	}
+	log.Printf("%+v", u)
 
 	// Recognize
 	//recreq := &inspector.RecognizeRequest{
@@ -77,14 +83,15 @@ func main() {
 	//}
 	//log.Printf("%+v\n", r)
 
-	pag, err := c.Sku.GetSKU(0, 10)
-	if err != nil {
-		log.Println(err)
-	}
-	//log.Printf("%+v\n", pag)
-	sku, err := c.Sku.ToSku(pag.Results)
-	if err != nil {
-		log.Println(err)
-	}
-	log.Printf("%+v\n", sku)
+	// SKU
+	//pag, err := c.Sku.GetSKU(0, 10)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	////log.Printf("%+v\n", pag)
+	//sku, err := c.Sku.ToSku(pag.Results)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//log.Printf("%+v\n", sku)
 }
