@@ -67,13 +67,24 @@ func main() {
 	//}
 	//log.Printf("%+v\n", r)
 
-	report, err := c.Report.GetReport(14622)
+	//report, err := c.Report.GetReport(14622)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//r, err := c.Report.ToFacingCount(report.Json)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//log.Printf("%+v\n", r)
+
+	pag, err := c.Sku.GetSKU(0, 10)
 	if err != nil {
 		log.Println(err)
 	}
-	r, err := c.Report.ToFacingCount(report.Json)
+	//log.Printf("%+v\n", pag)
+	sku, err := c.Sku.ToSku(pag.Results)
 	if err != nil {
 		log.Println(err)
 	}
-	log.Printf("%+v\n", r)
+	log.Printf("%+v\n", sku)
 }

@@ -10,6 +10,13 @@ import (
 	"net/url"
 )
 
+type Pagination struct {
+	Count    int                      `json:"count"`
+	Next     *string                  `json:"next,omitempty"`
+	Previous *string                  `json:"previous,omitempty"`
+	Results  []map[string]interface{} `json:"results"`
+}
+
 type Client struct {
 	Instance   *url.URL
 	APIKey     string
@@ -18,6 +25,7 @@ type Client struct {
 	Image     *ImageService
 	Recognize *RecognizeService
 	Report    *ReportService
+	Sku       *SkuService
 }
 
 type ClintConf struct {
@@ -34,6 +42,7 @@ func NewClient(cfg ClintConf) *Client {
 	c.Image = &ImageService{client: c}
 	c.Recognize = &RecognizeService{client: c}
 	c.Report = &ReportService{client: c}
+	c.Sku = &SkuService{client: c}
 
 	return c
 }
@@ -58,8 +67,10 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 		req.Header.Set("Content-Type", "application/json")
 	}
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
+
 	//dump, err := httputil.DumpRequest(req, true)
 	//fmt.Println(string(dump))
+
 	return req, nil
 }
 
