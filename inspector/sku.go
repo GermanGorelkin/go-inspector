@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"fmt"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -28,10 +29,8 @@ func (srv *SkuService) GetSKU(offset, limit int) (*Pagination, error) {
 	if err != nil {
 		return nil, err
 	}
-	q := req.URL.Query()
-	q.Add("offset", string(offset))
-	q.Add("limit", string(limit))
-	req.URL.RawQuery = q.Encode()
+	q := fmt.Sprintf("limit=%d&offset=%d", limit, offset)
+	req.URL.RawQuery += q
 
 	var pag Pagination
 	_, err = srv.client.do(req, &pag)
