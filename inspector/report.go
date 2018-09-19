@@ -65,13 +65,13 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 	return &report, nil
 }
 
-func (srv *ReportService) ToPriceTags(v []map[string]interface{}) ([]ReportPriceTagsJson, error) {
+func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
 	err := mapstructure.Decode(v, &r)
 	return r, err
 }
 
-func (srv *ReportService) ToFacingCount(v []map[string]interface{}) ([]ReportFacingCountJson, error) {
+func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
 	err := mapstructure.Decode(v, &r)
 	return r, err
