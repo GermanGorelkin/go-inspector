@@ -75,10 +75,9 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 
 	// dump request for debug
 	dump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err == nil {
+		logrus.Debugln(string(dump))
 	}
-	logrus.Debugln(string(dump))
 	// ----------------
 
 	return req, nil
@@ -117,10 +116,9 @@ func (c *Client) newRequestFormFile(path string, r io.Reader, filename string) (
 
 	// dump request for debug
 	dump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err == nil {
+		logrus.Debugln(string(dump))
 	}
-	logrus.Debugln(string(dump))
 	// --------------------
 
 	return req, nil
@@ -136,18 +134,19 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 
 	// dump response for debug
 	dump, err := httputil.DumpResponse(resp, true)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err == nil {
+		logrus.Debugln(string(dump))
 	}
-	logrus.Debugln(string(dump))
 	// -------------------------
 
 	if resp.StatusCode == http.StatusOK {
 		err = json.NewDecoder(resp.Body).Decode(v)
 		if err != nil {
 			err = errors.WithStack(err)
-			return nil, err
+			return resp, err
 		}
+	} else {
+		return resp, errors.New(fmt.Sprintf("Response Status %s\n", resp.Status))
 	}
 
 	return resp, nil
