@@ -3,6 +3,7 @@ package inspector
 import (
 	"fmt"
 	"github.com/mitchellh/mapstructure"
+	"github.com/pkg/errors"
 )
 
 type Sku struct {
@@ -44,5 +45,8 @@ func (srv *SkuService) GetSKU(offset, limit int) (*Pagination, error) {
 func (srv *SkuService) ToSku(v []map[string]interface{}) ([]Sku, error) {
 	var r []Sku
 	err := mapstructure.Decode(v, &r)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
 	return r, err
 }

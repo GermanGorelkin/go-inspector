@@ -3,6 +3,7 @@ package inspector
 import (
 	"fmt"
 	"github.com/mitchellh/mapstructure"
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -68,11 +69,17 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
 	err := mapstructure.Decode(v, &r)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
 	return r, err
 }
 
 func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
 	err := mapstructure.Decode(v, &r)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
 	return r, err
 }

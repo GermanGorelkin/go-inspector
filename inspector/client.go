@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 )
 
@@ -56,11 +59,13 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 		buf = new(bytes.Buffer)
 		err := json.NewEncoder(buf).Encode(body)
 		if err != nil {
+			err = errors.WithStack(err)
 			return nil, err
 		}
 	}
 	req, err := http.NewRequest(method, u.String(), buf)
 	if err != nil {
+		err = errors.WithStack(err)
 		return nil, err
 	}
 	if body != nil {
@@ -68,8 +73,13 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	}
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
 
-	//dump, err := httputil.DumpRequest(req, true)
-	//fmt.Println(string(dump))
+	// dump request for debug
+	dump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
+	logrus.Debugln(string(dump))
+	// ----------------
 
 	return req, nil
 }
@@ -80,11 +90,13 @@ func (c *Client) newRequestFormFile(path string, r io.Reader, filename string) (
 
 	fileWriter, err := bodyWriter.CreateFormFile("datafile", filename)
 	if err != nil {
+		err = errors.WithStack(err)
 		return nil, err
 	}
 
 	_, err = io.Copy(fileWriter, r)
 	if err != nil {
+		err = errors.WithStack(err)
 		return nil, err
 	}
 
@@ -96,24 +108,47 @@ func (c *Client) newRequestFormFile(path string, r io.Reader, filename string) (
 
 	req, err := http.NewRequest("POST", u.String(), bodyBuf)
 	if err != nil {
+		err = errors.WithStack(err)
 		return nil, err
 	}
 
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
+
+	// dump request for debug
+	dump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
+	logrus.Debugln(string(dump))
+	// --------------------
+
 	return req, nil
 }
 
 func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
+		err = errors.WithStack(err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	//dump, err := httputil.DumpResponse(resp, true)
-	//fmt.Println(string(dump))
+	// dump response for debug
+	dump, err := httputil.DumpResponse(resp, true)
+	if err != nil {
+		err = errors.WithStack(err)
+	}
+	logrus.Debugln(string(dump))
+	// -------------------------
 
-	err = json.NewDecoder(resp.Body).Decode(v)
-	return resp, err
+	if resp.StatusCode == http.StatusOK {
+		err = json.NewDecoder(resp.Body).Decode(v)
+		if err != nil {
+			err = errors.WithStack(err)
+			return nil, err
+		}
+	}
+
+	return resp, nil
 }
