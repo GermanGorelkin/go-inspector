@@ -42,7 +42,7 @@ func (srv *SkuService) GetSKU(offset, limit int) (*Pagination, error) {
 	return &pag, nil
 }
 
-func (srv *SkuService) ToSku(v []map[string]interface{}) ([]Sku, error) {
+func (srv *SkuService) ToSku(v interface{}) ([]Sku, error) {
 	var r []Sku
 	err := mapstructure.Decode(v, &r)
 	if err != nil {

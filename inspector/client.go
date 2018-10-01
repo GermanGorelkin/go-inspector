@@ -14,10 +14,10 @@ import (
 )
 
 type Pagination struct {
-	Count    int                      `json:"count"`
-	Next     *string                  `json:"next,omitempty"`
-	Previous *string                  `json:"previous,omitempty"`
-	Results  []map[string]interface{} `json:"results"`
+	Count    int         `json:"count"`
+	Next     *string     `json:"next,omitempty"`
+	Previous *string     `json:"previous,omitempty"`
+	Results  interface{} `json:"results"`
 }
 
 type Client struct {
