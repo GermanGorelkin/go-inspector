@@ -29,6 +29,7 @@ type Client struct {
 	Recognize *RecognizeService
 	Report    *ReportService
 	Sku       *SkuService
+	Visit     *VisitService
 }
 
 type ClintConf struct {
@@ -46,6 +47,7 @@ func NewClient(cfg ClintConf) *Client {
 	c.Recognize = &RecognizeService{client: c}
 	c.Report = &ReportService{client: c}
 	c.Sku = &SkuService{client: c}
+	c.Visit = &VisitService{client: c}
 
 	return c
 }
