@@ -16,3 +16,6 @@
 
 # Set var env
 run.bat
+
+# cmd
+cmd/*
