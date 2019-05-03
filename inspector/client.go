@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/http/httputil"
@@ -142,7 +143,17 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	// -------------------------
 
 	if resp.StatusCode == http.StatusOK {
-		err = json.NewDecoder(resp.Body).Decode(v)
+		//-----------
+		// replace NaN to null
+		b, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			err = errors.WithStack(err)
+			return resp, err
+		}
+		b = bytes.Replace(b, []byte(":NaN"), []byte(":null"), -1)
+		rd := bytes.NewReader(b)
+		//-----------------
+		err = json.NewDecoder(rd).Decode(v)
 		if err != nil {
 			err = errors.WithStack(err)
 			return resp, err
