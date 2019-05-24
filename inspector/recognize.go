@@ -23,6 +23,7 @@ type RecognizeResponse struct {
 	ID      int            `json:"id"`
 	Images  []int          `json:"images"`
 	Display int            `json:"display,omitempty"`
+	Scene   string         `json:"scene,omitempty"`
 	Reports map[string]int `json:"reports"`
 }
 
