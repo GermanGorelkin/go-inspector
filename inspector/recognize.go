@@ -12,17 +12,17 @@ type RecognizeRequest struct {
 	Images      []int    `json:"images"`
 	ReportTypes []string `json:"report_types"`
 
-	Display     *int       `json:"display,omitempty"`
-	Visit       *int       `json:"visit,omitempty"`
-	Datetime    *time.Time `json:"datetime,omitempty"`
-	Webhook     *string    `json:"webhook,omitempty"`
-	CountryCode *string    `json:"country_code"`
+	Display     int       `json:"display,omitempty"`
+	Visit       int       `json:"visit,omitempty"`
+	Datetime    time.Time `json:"datetime,omitempty"`
+	Webhook     string    `json:"webhook,omitempty"`
+	CountryCode string    `json:"country_code,omitempty"`
 }
 type RecognizeResponse struct {
 	ID      int            `json:"id"`
 	Images  []int          `json:"images"`
 	Display int            `json:"display,omitempty"`
-	Scene   string         `json:"scene,omitempty"`
+	Scene   string         `json:"scene"`
 	Reports map[string]int `json:"reports"`
 }
 
