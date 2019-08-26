@@ -26,7 +26,7 @@ type RecognizeResponse struct {
 	Reports map[string]int `json:"reports"`
 }
 
-func (srv *RecognizeService) Recognize(rr *RecognizeRequest) (*RecognizeResponse, error) {
+func (srv *RecognizeService) Recognize(rr RecognizeRequest) (*RecognizeResponse, error) {
 	req, err := srv.client.newRequest("POST", "recognize/", rr)
 	if err != nil {
 		return nil, err
