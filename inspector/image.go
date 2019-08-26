@@ -17,7 +17,7 @@ type Image struct {
 	CreatedDate time.Time `json:"created_date"`
 }
 
-type UploadByUrl struct {
+type UploadByUrlRequest struct {
 	URL string `json:"url"`
 }
 
@@ -38,7 +38,7 @@ func (srv *ImageService) Upload(r io.Reader, filename string) (*Image, error) {
 
 //upload_by_url
 func (srv *ImageService) UploadByURL(url string) (*Image, error) {
-	body := UploadByUrl{URL: url}
+	body := UploadByUrlRequest{URL: url}
 
 	req, err := srv.client.newRequest("POST", "uploads/upload_by_url/", body)
 	if err != nil {

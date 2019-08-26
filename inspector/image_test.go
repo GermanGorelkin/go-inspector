@@ -20,12 +20,12 @@ func TestImageService_UploadByURL(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var got UploadByUrl
+		var got UploadByUrlRequest
 		err = json.Unmarshal(b, &got)
 		if err != nil {
 			t.Fatal(err)
 		}
-		want := UploadByUrl{URL: imgUrl}
+		want := UploadByUrlRequest{URL: imgUrl}
 		assert.Equal(t, want, got)
 
 		_, err = fmt.Fprintln(w, `{  
