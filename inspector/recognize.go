@@ -12,11 +12,11 @@ type RecognizeRequest struct {
 	Images      []int    `json:"images"`
 	ReportTypes []string `json:"report_types"`
 
-	Display     int       `json:"display,omitempty"`
-	Visit       int       `json:"visit,omitempty"`
-	Datetime    time.Time `json:"datetime,omitempty"`
-	Webhook     string    `json:"webhook,omitempty"`
-	CountryCode string    `json:"country_code,omitempty"`
+	Display     int        `json:"display,omitempty"`
+	Visit       int        `json:"visit,omitempty"`
+	Datetime    *time.Time `json:"datetime,omitempty"`
+	Webhook     string     `json:"webhook,omitempty"`
+	CountryCode string     `json:"country_code,omitempty"`
 }
 type RecognizeResponse struct {
 	ID      int            `json:"id"`
