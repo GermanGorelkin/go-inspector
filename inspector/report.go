@@ -68,7 +68,7 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 
 func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
-	err := mapstructure.Decode(v, &r)
+	err := mapstructure.WeakDecode(v, &r)
 	if err != nil {
 		err = errors.WithStack(err)
 	}

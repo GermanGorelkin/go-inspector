@@ -104,50 +104,116 @@ func TestReportService_ToFacingCount(t *testing.T) {
 	assert.Equal(t, want, got)
 }
 
-func TestReportService_ToPriceTags(t *testing.T) {
+//func TestReportService_ToPriceTags(t *testing.T) {
+//	b := `[
+//        {
+//            "sku_image_url": "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
+//            "price_tag_colors": [
+//                "white"
+//            ],
+//            "category": "LAUNDRY",
+//            "sku_id": 12176,
+//            "colors": [
+//                {
+//                    "color": "white",
+//                    "score": 0.97222222
+//                }
+//            ],
+//            "min_price": 40.0,
+//            "name": "Vernel 910/1000 Детский",
+//            "promo": "No",
+//            "price": 40.0,
+//            "brand": "vernel",
+//            "manufacturer": "Henkel",
+//            "max_price": 40.0
+//        },
+//        {
+//            "sku_image_url": "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
+//            "price_tag_colors": [
+//                "white"
+//            ],
+//            "category": "LAUNDRY",
+//            "sku_id": 12177,
+//            "colors": [
+//                {
+//                    "color": "white",
+//                    "score": 0.87152778
+//                }
+//            ],
+//            "min_price": 177.0,
+//            "name": "Vernel 910/1000 Гибискус и Роза",
+//            "promo": "No",
+//            "price": 177.0,
+//            "brand": "vernel",
+//            "manufacturer": "Henkel",
+//            "max_price": 177.0
+//        }]`
+//	var m []map[string]interface{}
+//	err := json.Unmarshal([]byte(b), &m)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	var srv ReportService
+//	got, err := srv.ToPriceTags(m)
+//	assert.NoError(t, err)
+//
+//	want := []ReportPriceTagsJson{
+//		{
+//			Brand:        "vernel",
+//			Manufacturer: "Henkel",
+//			Price:        40.0,
+//			Name:         "Vernel 910/1000 Детский",
+//			Category:     "LAUNDRY",
+//			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
+//			Promo:        "0",
+//			SkuId:        12176,
+//		},
+//		{
+//			Brand:        "vernel",
+//			Manufacturer: "Henkel",
+//			Price:        177.0,
+//			Name:         "Vernel 910/1000 Гибискус и Роза",
+//			Category:     "LAUNDRY",
+//			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
+//			Promo:        "0",
+//			SkuId:        12177,
+//		},
+//	}
+//
+//	assert.Equal(t, want, got)
+//}
+
+func TestReportService_ToPriceTags_newdata(t *testing.T) {
 	b := `[
-        {
-            "sku_image_url": "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
-            "price_tag_colors": [
-                "white"
-            ],
-            "category": "LAUNDRY",
-            "sku_id": 12176,
-            "colors": [
-                {
-                    "color": "white",
-                    "score": 0.97222222
-                }
-            ],
-            "min_price": 40.0,
-            "name": "Vernel 910/1000 Детский",
-            "promo": "No",
-            "price": 40.0,
-            "brand": "vernel",
-            "manufacturer": "Henkel",
-            "max_price": 40.0
-        },
-        {
-            "sku_image_url": "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
-            "price_tag_colors": [
-                "white"
-            ],
-            "category": "LAUNDRY",
-            "sku_id": 12177,
-            "colors": [
-                {
-                    "color": "white",
-                    "score": 0.87152778
-                }
-            ],
-            "min_price": 177.0,
-            "name": "Vernel 910/1000 Гибискус и Роза",
-            "promo": "No",
-            "price": 177.0,
-            "brand": "vernel",
-            "manufacturer": "Henkel",
-            "max_price": 177.0
-        }]`
+              {
+        "promo": true,
+        "category": "HOME & HYGIENE",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/0ffbe108-2ab2-4b1d-a296-dca361ce1cd4.jpg",
+        "manufacturer": "Henkel",
+        "price": 360.0,
+        "result_pricetag": 245411316,
+        "colors": [
+          {
+            "score": 0.26388889,
+            "color": "white"
+          },
+          {
+            "score": 0.51041667,
+            "color": "red"
+          }
+        ],
+        "min_price": 360.0,
+        "max_price": 360.0,
+        "name": "Bref",
+        "result_object": 245411277,
+        "sku_id": 9859,
+        "brand": "Bref",
+        "price_tag_colors": [
+          "white",
+          "red"
+        ]
+      }]`
 	var m []map[string]interface{}
 	err := json.Unmarshal([]byte(b), &m)
 	if err != nil {
@@ -160,24 +226,14 @@ func TestReportService_ToPriceTags(t *testing.T) {
 
 	want := []ReportPriceTagsJson{
 		{
-			Brand:        "vernel",
+			Brand:        "Bref",
 			Manufacturer: "Henkel",
-			Price:        40.0,
-			Name:         "Vernel 910/1000 Детский",
-			Category:     "LAUNDRY",
-			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
-			Promo:        "No",
-			SkuId:        12176,
-		},
-		{
-			Brand:        "vernel",
-			Manufacturer: "Henkel",
-			Price:        177.0,
-			Name:         "Vernel 910/1000 Гибискус и Роза",
-			Category:     "LAUNDRY",
-			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
-			Promo:        "No",
-			SkuId:        12177,
+			Price:        360.0,
+			Name:         "Bref",
+			Category:     "HOME & HYGIENE",
+			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/2019/08/28/0ffbe108-2ab2-4b1d-a296-dca361ce1cd4.jpg",
+			Promo:        "1",
+			SkuId:        9859,
 		},
 	}
 
