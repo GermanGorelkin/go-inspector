@@ -11,7 +11,7 @@ type ImageService struct {
 
 type Image struct {
 	ID          int       `json:"id"`
-	URL         string    `json:"url"`
+	URL         string    `json:"url,omitempty"`
 	Width       int       `json:"width"`
 	Height      int       `json:"height"`
 	CreatedDate time.Time `json:"created_date"`
