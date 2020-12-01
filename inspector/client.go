@@ -5,13 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
+	"time"
 )
 
 type Pagination struct {
@@ -42,7 +41,7 @@ func NewClient(cfg ClintConf) *Client {
 	c := &Client{
 		APIKey:     cfg.APIKey,
 		Instance:   cfg.Instance,
-		httpClient: http.DefaultClient,
+		httpClient: &http.Client{Timeout: 60 * time.Second},
 	}
 	c.Image = &ImageService{client: c}
 	c.Recognize = &RecognizeService{client: c}
@@ -77,10 +76,10 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
 
 	// dump request for debug
-	dump, err := httputil.DumpRequest(req, true)
-	if err == nil {
-		logrus.Debugln(string(dump))
-	}
+	//dump, err := httputil.DumpRequest(req, true)
+	//if err == nil {
+	//	logrus.Debugln(string(dump))
+	//}
 	// ----------------
 
 	return req, nil
@@ -118,10 +117,10 @@ func (c *Client) newRequestFormFile(path string, r io.Reader, filename string) (
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", c.APIKey))
 
 	// dump request for debug
-	dump, err := httputil.DumpRequest(req, true)
-	if err == nil {
-		logrus.Debugln(string(dump))
-	}
+	//dump, err := httputil.DumpRequest(req, true)
+	//if err == nil {
+	//	logrus.Debugln(string(dump))
+	//}
 	// --------------------
 
 	return req, nil
@@ -136,10 +135,10 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	defer resp.Body.Close()
 
 	// dump response for debug
-	dump, err := httputil.DumpResponse(resp, true)
-	if err == nil {
-		logrus.Debugln(string(dump))
-	}
+	//dump, err := httputil.DumpResponse(resp, true)
+	//if err == nil {
+	//	logrus.Debugln(string(dump))
+	//}
 	// -------------------------
 
 	if resp.StatusCode == http.StatusOK {

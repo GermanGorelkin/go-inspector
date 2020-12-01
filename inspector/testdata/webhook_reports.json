@@ -1,0 +1,465 @@
+{
+  "id": 406907,
+  "display": 1,
+  "reports": {
+    "FACING_COUNT_1_5": [
+      {
+        "sku_id": 9857,
+        "count": 4
+      },
+      {
+        "sku_id": 2,
+        "count": 101
+      },
+      {
+        "sku_id": 9859,
+        "count": 3
+      },
+      {
+        "sku_id": 9860,
+        "count": 2
+      },
+      {
+        "sku_id": 12101,
+        "count": 4
+      },
+      {
+        "sku_id": 26502,
+        "count": 4
+      },
+      {
+        "sku_id": 26503,
+        "count": 5
+      },
+      {
+        "sku_id": 12122,
+        "count": 1
+      },
+      {
+        "sku_id": 26508,
+        "count": 2
+      },
+      {
+        "sku_id": 12106,
+        "count": 2
+      },
+      {
+        "sku_id": 26487,
+        "count": 1
+      },
+      {
+        "sku_id": 9868,
+        "count": 4
+      },
+      {
+        "sku_id": 13453,
+        "count": 2
+      },
+      {
+        "sku_id": 9869,
+        "count": 4
+      },
+      {
+        "sku_id": 26505,
+        "count": 8
+      },
+      {
+        "sku_id": 38256,
+        "count": 15
+      },
+      {
+        "sku_id": 13459,
+        "count": 1
+      },
+      {
+        "sku_id": 26581,
+        "count": 1
+      },
+      {
+        "sku_id": 26583,
+        "count": 2
+      },
+      {
+        "sku_id": 38384,
+        "count": 1
+      },
+      {
+        "sku_id": 31130,
+        "count": 8
+      },
+      {
+        "sku_id": 9885,
+        "count": 5
+      },
+      {
+        "sku_id": 9886,
+        "count": 3
+      },
+      {
+        "sku_id": 2785,
+        "count": 3
+      },
+      {
+        "sku_id": 30819,
+        "count": 4
+      },
+      {
+        "sku_id": 31844,
+        "count": 1
+      },
+      {
+        "sku_id": 12092,
+        "count": 2
+      },
+      {
+        "sku_id": 26491,
+        "count": 1
+      },
+      {
+        "sku_id": 26488,
+        "count": 1
+      },
+      {
+        "sku_id": 26736,
+        "count": 1
+      },
+      {
+        "sku_id": 26504,
+        "count": 4
+      },
+      {
+        "sku_id": 26579,
+        "count": 1
+      },
+      {
+        "sku_id": 47477,
+        "count": 2
+      },
+      {
+        "sku_id": 47479,
+        "count": 2
+      },
+      {
+        "sku_id": 39224,
+        "count": 2
+      },
+      {
+        "sku_id": 47481,
+        "count": 1
+      },
+      {
+        "sku_id": 39226,
+        "count": 3
+      },
+      {
+        "sku_id": 47483,
+        "count": 1
+      },
+      {
+        "sku_id": 39228,
+        "count": 4
+      },
+      {
+        "sku_id": 26506,
+        "count": 4
+      },
+      {
+        "sku_id": 12094,
+        "count": 1
+      }
+    ],
+    "PRICE_TAGS": [
+      {
+        "promo": true,
+        "category": "HOME & HYGIENE",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/0ffbe108-2ab2-4b1d-a296-dca361ce1cd4.jpg",
+        "manufacturer": "Henkel",
+        "price": 360.0,
+        "result_pricetag": 245411316,
+        "colors": [
+          {
+            "score": 0.26388889,
+            "color": "white"
+          },
+          {
+            "score": 0.51041667,
+            "color": "red"
+          }
+        ],
+        "min_price": 360.0,
+        "max_price": 360.0,
+        "name": "Bref 2*\u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b \u0421\u0438\u043b\u0430 \u0410\u043a\u0442\u0438\u0432 \u041b\u0430\u0432\u0430\u043d\u0434\u0430",
+        "result_object": 245411277,
+        "sku_id": 9859,
+        "brand": "Bref",
+        "price_tag_colors": [
+          "white",
+          "red"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/ca513a20-3aa0-4ff9-b6c2-8423898ba491.jpg",
+        "manufacturer": "Henkel",
+        "price": 149.0,
+        "result_pricetag": 245411185,
+        "colors": [
+          {
+            "score": 0.84375,
+            "color": "white"
+          }
+        ],
+        "min_price": 149.0,
+        "max_price": 149.0,
+        "name": "Persil 2190 \u0413\u0435\u043b\u044c \u041a\u043e\u043b\u043e\u0440",
+        "result_object": 245411110,
+        "sku_id": 12106,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "HOME & HYGIENE",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/b19f0a26-ae1a-4a1a-ba60-bbd8401cbb8b.jpg",
+        "manufacturer": "Henkel",
+        "price": 139.0,
+        "result_pricetag": 245411311,
+        "colors": [
+          {
+            "score": 0.74479167,
+            "color": "white"
+          }
+        ],
+        "min_price": 139.0,
+        "max_price": 139.0,
+        "name": "Bref \u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b DA \u041b\u0438\u043c\u043e\u043d",
+        "result_object": 245411266,
+        "sku_id": 9868,
+        "brand": "Bref",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": true,
+        "category": "HOME & HYGIENE",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/09bf0f68-3da9-416d-8226-e31984ac93f7.jpg",
+        "manufacturer": "Henkel",
+        "price": 320.0,
+        "result_pricetag": 245411313,
+        "colors": [
+          {
+            "score": 0.28125,
+            "color": "white"
+          },
+          {
+            "score": 0.57465278,
+            "color": "red"
+          }
+        ],
+        "min_price": 320.0,
+        "max_price": 320.0,
+        "name": "Bref \u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b DA \u041e\u043a\u0435\u0430\u043d",
+        "result_object": 245411267,
+        "sku_id": 9869,
+        "brand": "Bref",
+        "price_tag_colors": [
+          "white",
+          "red"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/198bb9af-a145-4c07-838b-3b4870f395bc.jpg",
+        "manufacturer": "P&G",
+        "price": 134.0,
+        "result_pricetag": 245411182,
+        "colors": [
+          {
+            "score": 0.84548611,
+            "color": "white"
+          }
+        ],
+        "min_price": 134.0,
+        "max_price": 134.0,
+        "name": "LENOR \u041a\u043e\u043d\u0446. \u043a\u043e\u043d\u0434\u0438\u0446\u0438\u043e\u043d\u0435\u0440 \u0434\u043b\u044f \u0431\u0435\u043b\u044c\u044f \u0410\u043c\u0435\u0442\u0438\u0441\u0442 \u0438 \u0426\u0432\u0435\u0442\u043e\u0447\u043d\u044b\u0439 \u0411\u0443\u043a\u0435\u0442 930\u043c\u043b",
+        "result_object": 245411080,
+        "sku_id": 38256,
+        "brand": "Lenor",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/29/696590d2-6102-4c2c-9025-a8bef4e445cd.jpg",
+        "manufacturer": "Henkel",
+        "price": 50.0,
+        "result_pricetag": 245411193,
+        "colors": [
+          {
+            "score": 0.99131944,
+            "color": "white"
+          }
+        ],
+        "min_price": 50.0,
+        "max_price": 50.0,
+        "name": "Persil 14/15 \u0430\u0432\u0442 \u043a\u0430\u043f\u0441 \u041b\u0430\u0432\u0430\u043d\u0434\u0430",
+        "result_object": 245411093,
+        "sku_id": 26579,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/29/8d28a8f5-fab4-48cc-b472-abdc8d8358c7.jpg",
+        "manufacturer": "Henkel",
+        "price": 40.0,
+        "result_pricetag": 245411218,
+        "colors": [
+          {
+            "score": 0.98090278,
+            "color": "white"
+          }
+        ],
+        "min_price": 40.0,
+        "max_price": 40.0,
+        "name": "Persil 6000 \u0430\u0432\u0442 \u0421\u0432.\u0412\u0435\u0440\u043d\u0435\u043b\u044c",
+        "result_object": 245411103,
+        "sku_id": 13459,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/29/c863ea2c-ee38-4d2a-bbd1-5d39d61fa3e3.jpg",
+        "manufacturer": "Henkel",
+        "price": 48.0,
+        "result_pricetag": 245411206,
+        "colors": [
+          {
+            "score": 0.91145833,
+            "color": "white"
+          }
+        ],
+        "min_price": 48.0,
+        "max_price": 48.0,
+        "name": "Persil 14 \u0430\u0432\u0442 \u043a\u0430\u043f\u0441 \u0421\u0432. \u0412\u0435\u0440\u043d\u0435\u043b\u044c",
+        "result_object": 245411092,
+        "sku_id": 26581,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/29/f7154d1e-c2e9-41d4-9cdf-c9d13554421a.jpg",
+        "manufacturer": "Henkel",
+        "price": 20.0,
+        "result_pricetag": 245411220,
+        "colors": [
+          {
+            "score": 0.94097222,
+            "color": "white"
+          }
+        ],
+        "min_price": 20.0,
+        "max_price": 20.0,
+        "name": "Persil 14/15 \u0430\u0432\u0442 \u043a\u0430\u043f\u0441 \u041a\u043e\u043b\u043e\u0440",
+        "result_object": 245411095,
+        "sku_id": 26583,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/f4736d4f-ba36-4950-b268-0fd9bb0bfb7f.jpg",
+        "manufacturer": "Henkel",
+        "price": 20.0,
+        "result_pricetag": 245411201,
+        "colors": [
+          {
+            "score": 0.90277778,
+            "color": "white"
+          }
+        ],
+        "min_price": 20.0,
+        "max_price": 20.0,
+        "name": "Persil 3000 \u0430\u0432\u0442 \u041a\u043e\u043b\u043e\u0440 (\u0421\u0432.\u0412\u0435\u0440\u043d) (20\u0441\u0442)",
+        "result_object": 245411152,
+        "sku_id": 12122,
+        "brand": "Persil",
+        "price_tag_colors": [
+          "white"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/baae64e2-3e90-43b7-a96e-5156e5a31709.jpg",
+        "manufacturer": "Henkel",
+        "price": 69.0,
+        "result_pricetag": 245411187,
+        "colors": [
+          {
+            "score": 0.76215278,
+            "color": "white"
+          },
+          {
+            "score": 0.06423611,
+            "color": "yellow"
+          }
+        ],
+        "min_price": 69.0,
+        "max_price": 69.0,
+        "name": "E 1000 \u0421\u0432\u0435\u0436\u0438\u0439",
+        "result_object": 245411051,
+        "sku_id": 9885,
+        "brand": "E",
+        "price_tag_colors": [
+          "white",
+          "yellow"
+        ]
+      },
+      {
+        "promo": false,
+        "category": "LAUNDRY",
+        "sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/47cb7302-8b4b-4773-81c8-487aa469deec.jpg",
+        "manufacturer": "Henkel",
+        "price": 69.0,
+        "result_pricetag": 245411181,
+        "colors": [
+          {
+            "score": 0.80208333,
+            "color": "white"
+          }
+        ],
+        "min_price": 69.0,
+        "max_price": 69.0,
+        "name": "E 1000 \u0421\u0435\u043d\u0441\u0438\u0442\u0438\u0432",
+        "result_object": 245411062,
+        "sku_id": 9886,
+        "brand": "E",
+        "price_tag_colors": [
+          "white"
+        ]
+      }
+    ]
+  }
+}
