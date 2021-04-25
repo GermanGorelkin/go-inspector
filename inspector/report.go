@@ -2,9 +2,9 @@ package inspector
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 	"time"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 const (
@@ -25,13 +25,13 @@ type ReportService struct {
 }
 
 type Report struct {
-	ID          int                      `json:"id"`
-	Status      string                   `json:"status"`
-	ReportType  string                   `json:"report_type"`
-	CreatedDate time.Time                `json:"created_date,omitempty"`
-	UpdatedDate time.Time                `json:"updated_date,omitempty"`
-	Visit       int                      `json:"visit,omitempty"`
-	Json        []map[string]interface{} `json:"json,omitempty"`
+	ID          int         `json:"id"`
+	Status      string      `json:"status"`
+	ReportType  string      `json:"report_type"`
+	CreatedDate time.Time   `json:"created_date,omitempty"`
+	UpdatedDate time.Time   `json:"updated_date,omitempty"`
+	Visit       int         `json:"visit,omitempty"`
+	Json        interface{} `json:"json,omitempty"`
 }
 
 type ReportPriceTagsJson struct {
@@ -54,13 +54,12 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 	path := fmt.Sprintf("reports/%d/", id)
 	req, err := srv.client.newRequest("GET", path, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to make request %q:%w", path, err)
 	}
 
 	var report Report
-	_, err = srv.client.do(req, &report)
-	if err != nil {
-		return nil, err
+	if _, err = srv.client.do(req, &report); err != nil {
+		return nil, fmt.Errorf("failed to do request %q:%w", path, err)
 	}
 
 	return &report, nil
@@ -68,18 +67,16 @@ func (srv *ReportService) GetReport(id int) (*Report, error) {
 
 func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
-	err := mapstructure.WeakDecode(v, &r)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err := mapstructure.WeakDecode(v, &r); err != nil {
+		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
 	}
-	return r, err
+	return r, nil
 }
 
 func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
-	err := mapstructure.Decode(v, &r)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err := mapstructure.WeakDecode(v, &r); err != nil {
+		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
 	}
-	return r, err
+	return r, nil
 }

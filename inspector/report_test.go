@@ -3,12 +3,13 @@ package inspector
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestReportService_GetReport(t *testing.T) {
@@ -40,10 +41,16 @@ func TestReportService_GetReport(t *testing.T) {
 	report, err := client.Report.GetReport(1)
 	assert.NoError(t, err)
 
+	// prepare dates
 	cdate, err := time.Parse(time.RFC3339, "2019-08-26T16:33:30.563548Z")
 	assert.NoError(t, err)
 	udate, err := time.Parse(time.RFC3339, "2019-08-26T16:34:12.241644Z")
 	assert.NoError(t, err)
+	// prepare json report
+	jr := `[{"count": 2,"sku_id": 2176}]`
+	var v []interface{}
+	_ = json.Unmarshal([]byte(jr), &v)
+
 	want := &Report{
 		ID:          2831638,
 		Status:      "READY",
@@ -51,12 +58,7 @@ func TestReportService_GetReport(t *testing.T) {
 		CreatedDate: cdate,
 		UpdatedDate: udate,
 		Visit:       115604,
-		Json: []map[string]interface{}{
-			{
-				"count":  float64(2),
-				"sku_id": float64(2176),
-			},
-		},
+		Json:        v,
 	}
 
 	assert.Equal(t, want, report)
