@@ -241,3 +241,82 @@ func TestReportService_ToPriceTags_newdata(t *testing.T) {
 
 	assert.Equal(t, want, got)
 }
+
+func TestReportService_ParseWebhookReports(t *testing.T) {
+	b := []byte(`{
+		"id": 406907,
+		"display": 1,
+		"reports": {
+		  "FACING_COUNT_1_5": [
+			{
+			  "sku_id": 9857,
+			  "count": 4
+			}
+		  ],
+		  "PRICE_TAGS": [
+              {
+				"promo": true,
+				"category": "HOME & HYGIENE",
+				"sku_image_url": "http://henkel.inspector-cloud.ru/media/2019/08/28/0ffbe108-2ab2-4b1d-a296-dca361ce1cd4.jpg",
+				"manufacturer": "Henkel",
+				"price": 360.0,
+				"result_pricetag": 245411316,
+				"colors": [
+				{
+					"score": 0.26388889,
+					"color": "white"
+				},
+				{
+					"score": 0.51041667,
+					"color": "red"
+				}
+				],
+				"min_price": 360.0,
+				"max_price": 360.0,
+				"name": "Bref",
+				"result_object": 245411277,
+				"sku_id": 9859,
+				"brand": "Bref",
+				"price_tag_colors": [
+				"white",
+				"red"
+				]
+			}]
+		}
+	  }`)
+
+	var srv ReportService
+
+	got, err := srv.ParseWebhookReports(b)
+	assert.NoError(t, err)
+
+	want := &WebhookReports{
+		ID:      406907,
+		Display: 1,
+		Reports: struct {
+			FacingCount []ReportFacingCountJson `json:"FACING_COUNT_1_5"`
+			PriceTags   []ReportPriceTagsJson   `json:"PRICE_TAGS"`
+		}{
+			FacingCount: []ReportFacingCountJson{
+				{
+					Count: 4,
+					SkuId: 9857,
+				},
+			},
+			PriceTags: []ReportPriceTagsJson{
+				{
+					Brand:        "Bref",
+					Manufacturer: "Henkel",
+					Price:        360.0,
+					Name:         "Bref",
+					Category:     "HOME & HYGIENE",
+					SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/2019/08/28/0ffbe108-2ab2-4b1d-a296-dca361ce1cd4.jpg",
+					Promo:        "",
+					SkuId:        9859,
+				},
+			},
+		},
+	}
+
+	assert.Equal(t, want, got)
+}

@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -34,6 +35,15 @@ type Report struct {
 	Json        interface{} `json:"json,omitempty"`
 }
 
+type WebhookReports struct {
+	ID      int `json:"id"`
+	Display int `json:"display"`
+	Reports struct {
+		FacingCount []ReportFacingCountJson `json:"FACING_COUNT_1_5"`
+		PriceTags   []ReportPriceTagsJson   `json:"PRICE_TAGS"`
+	}
+}
+
 type ReportPriceTagsJson struct {
 	Brand        string  `json:"brand,omitempty"`
 	Manufacturer string  `json:"manufacturer,omitempty"`
@@ -41,7 +51,7 @@ type ReportPriceTagsJson struct {
 	Name         string  `json:"name"`
 	Category     string  `json:"category,omitempty"`
 	SkuImageUrl  string  `json:"sku_image_url" mapstructure:"sku_image_url"`
-	Promo        string  `json:"promo"`
+	Promo        string  `json:"-"`
 	SkuId        int     `json:"sku_id" mapstructure:"sku_id"`
 }
 
@@ -79,4 +89,12 @@ func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson,
 		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
 	}
 	return r, nil
+}
+
+func (srv *ReportService) ParseWebhookReports(b []byte) (*WebhookReports, error) {
+	var reports WebhookReports
+	if err := json.Unmarshal(b, &reports); err != nil {
+		return nil, fmt.Errorf("failed to Unmarshal %q:%w", b, err)
+	}
+	return &reports, nil
 }
