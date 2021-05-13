@@ -30,15 +30,22 @@ type Client struct {
 type ClintConf struct {
 	Instance string
 	APIKey   string
+	Verbose  bool
 }
 
 func NewClient(cfg ClintConf) (*Client, error) {
 	cl, err := httpclient.New(
 		&http.Client{Timeout: 30 * time.Second},
 		httpclient.SetBaseURL(cfg.Instance),
-		httpclient.SetAuthorization("Token", cfg.APIKey))
+		httpclient.SetAuthorization(cfg.APIKey, "Token"),
+		httpclient.SetInterceptor(httpclient.ResponseInterceptor))
 	if err != nil {
 		return nil, fmt.Errorf("failed to build http-client:%w", err)
+	}
+	if cfg.Verbose {
+		if err := cl.AddInterceptor(httpclient.DumpInterceptor); err != nil {
+			return nil, err
+		}
 	}
 
 	c := &Client{
