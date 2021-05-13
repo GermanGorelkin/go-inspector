@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 )
 
 type Sku struct {
@@ -30,15 +29,16 @@ func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Paginati
 	path := "sku/"
 	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to NewRequest(GET, %s):%w", path, err)
 	}
+
 	q := fmt.Sprintf("limit=%d&offset=%d", limit, offset)
 	req.URL.RawQuery += q
 
 	var pag Pagination
 	_, err = srv.client.httpClient.Do(ctx, req, &pag)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to Do with Request(GET, %s):%w", req.URL.RawQuery, err)
 	}
 
 	return &pag, nil
@@ -46,9 +46,8 @@ func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Paginati
 
 func (srv *SkuService) ToSku(v interface{}) ([]Sku, error) {
 	var r []Sku
-	err := mapstructure.Decode(v, &r)
-	if err != nil {
-		err = errors.WithStack(err)
+	if err := mapstructure.Decode(v, &r); err != nil {
+		return r, fmt.Errorf("failed to Decode %v:%w", v, err)
 	}
-	return r, err
+	return r, nil
 }

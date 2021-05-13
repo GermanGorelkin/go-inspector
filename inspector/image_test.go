@@ -18,14 +18,10 @@ func TestImageService_UploadByURL(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		b, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		var got UploadByUrlRequest
 		err = json.Unmarshal(b, &got)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		want := UploadByUrlRequest{URL: imgUrl}
 		assert.Equal(t, want, got)
 
@@ -35,9 +31,7 @@ func TestImageService_UploadByURL(t *testing.T) {
 				"width": 720,
 				"height": 1280,
 				"created_date": "2016-08-31T10:32:15.687287Z"  }`)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 	}))
 	defer ts.Close()
 

@@ -6,6 +6,5 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/germangorelkin/http-client v0.3.0
 	github.com/mitchellh/mapstructure v1.1.2
-	github.com/pkg/errors v0.8.1
 	github.com/stretchr/testify v1.7.0
 )

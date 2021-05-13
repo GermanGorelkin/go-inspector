@@ -23,14 +23,10 @@ func TestRecognizeService_Recognize(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		b, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		var got RecognizeRequest
 		err = json.Unmarshal(b, &got)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		assert.Equal(t, recReq, got)
 
 		_, err = fmt.Fprintln(w, `{  
@@ -42,9 +38,7 @@ func TestRecognizeService_Recognize(t *testing.T) {
 							"PLANOGRAM_COMPLIANCE":33
 							}
 					}`)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 	}))
 	defer ts.Close()
 
@@ -55,6 +49,7 @@ func TestRecognizeService_Recognize(t *testing.T) {
 	assert.NoError(t, err)
 
 	recRes, err := client.Recognize.Recognize(context.Background(), recReq)
+	assert.NoError(t, err)
 
 	want := &RecognizeResponse{
 		ID:     11,
@@ -65,6 +60,6 @@ func TestRecognizeService_Recognize(t *testing.T) {
 			"PLANOGRAM_COMPLIANCE": 33,
 		},
 	}
-	assert.NoError(t, err)
+
 	assert.Equal(t, want, recRes)
 }

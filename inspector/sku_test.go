@@ -3,6 +3,8 @@ package inspector
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const testPaginationResults = `[
@@ -37,31 +39,19 @@ func TestSkuService_ToSku(t *testing.T) {
 	b := []byte(testPaginationResults)
 	var f interface{}
 	err := json.Unmarshal(b, &f)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 
 	serv := SkuService{}
 
 	t.Run("2 SKU", func(t *testing.T) {
 		lsku, err := serv.ToSku(f)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		if len(lsku) != 2 {
-			t.Errorf("len(lsku) got %d want %d", len(lsku), 2)
-		}
+		assert.NoError(t, err)
+		assert.Equal(t, 2, len(lsku))
 	})
 
 	t.Run("nil PaginationResults", func(t *testing.T) {
 		lsku, err := serv.ToSku(nil)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		if len(lsku) != 0 {
-			t.Errorf("len(lsku) got %d want %d", len(lsku), 0)
-		}
+		assert.NoError(t, err)
+		assert.Equal(t, 0, len(lsku))
 	})
 }

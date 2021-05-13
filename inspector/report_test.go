@@ -26,9 +26,7 @@ func TestReportService_GetReport(t *testing.T) {
 									"sku_id": 2176
 								}]
 						}`)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 	}))
 	defer ts.Close()
 
@@ -49,7 +47,8 @@ func TestReportService_GetReport(t *testing.T) {
 	// prepare json report
 	jr := `[{"count": 2,"sku_id": 2176}]`
 	var v []interface{}
-	_ = json.Unmarshal([]byte(jr), &v)
+	err = json.Unmarshal([]byte(jr), &v)
+	assert.NoError(t, err)
 
 	want := &Report{
 		ID:          2831638,
@@ -80,9 +79,7 @@ func TestReportService_ToFacingCount(t *testing.T) {
         }]`
 	var m []map[string]interface{}
 	err := json.Unmarshal([]byte(b), &m)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 
 	var srv ReportService
 	got, err := srv.ToFacingCount(m)
@@ -218,9 +215,7 @@ func TestReportService_ToPriceTags_newdata(t *testing.T) {
       }]`
 	var m []map[string]interface{}
 	err := json.Unmarshal([]byte(b), &m)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 
 	var srv ReportService
 	got, err := srv.ToPriceTags(m)
