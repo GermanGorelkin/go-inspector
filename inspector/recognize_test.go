@@ -1,14 +1,15 @@
 package inspector
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRecognizeService_Recognize(t *testing.T) {
@@ -47,13 +48,13 @@ func TestRecognizeService_Recognize(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	inst, _ := url.Parse(ts.URL)
-	client := NewClient(ClintConf{
-		Instance: inst,
+	client, err := NewClient(ClintConf{
+		Instance: ts.URL,
 		APIKey:   "",
 	})
+	assert.NoError(t, err)
 
-	recRes, err := client.Recognize.Recognize(recReq)
+	recRes, err := client.Recognize.Recognize(context.Background(), recReq)
 
 	want := &RecognizeResponse{
 		ID:     11,

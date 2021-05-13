@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"context"
 	"time"
 )
 
@@ -26,14 +27,14 @@ type RecognizeResponse struct {
 	Reports map[string]int `json:"reports"`
 }
 
-func (srv *RecognizeService) Recognize(rr RecognizeRequest) (*RecognizeResponse, error) {
-	req, err := srv.client.newRequest("POST", "recognize/", rr)
+func (srv *RecognizeService) Recognize(ctx context.Context, rr RecognizeRequest) (*RecognizeResponse, error) {
+	req, err := srv.client.httpClient.NewRequest("POST", "recognize/", rr)
 	if err != nil {
 		return nil, err
 	}
 
 	var rec RecognizeResponse
-	_, err = srv.client.do(req, &rec)
+	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
 		return nil, err
 	}
@@ -51,14 +52,14 @@ type RecognitionErrorResponse struct {
 	RecognitionErrorID int `json:"recognition_error_id"`
 }
 
-func (srv *RecognizeService) RecognitionError(rr *RecognitionErrorRequest) (*RecognitionErrorResponse, error) {
-	req, err := srv.client.newRequest("POST", "recognition_error/", rr)
+func (srv *RecognizeService) RecognitionError(ctx context.Context, rr *RecognitionErrorRequest) (*RecognitionErrorResponse, error) {
+	req, err := srv.client.httpClient.NewRequest("POST", "recognition_error/", rr)
 	if err != nil {
 		return nil, err
 	}
 
 	var rec RecognitionErrorResponse
-	_, err = srv.client.do(req, &rec)
+	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
 		return nil, err
 	}

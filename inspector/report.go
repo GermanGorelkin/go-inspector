@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -60,15 +61,15 @@ type ReportFacingCountJson struct {
 	SkuId int `json:"sku_id" mapstructure:"sku_id"`
 }
 
-func (srv *ReportService) GetReport(id int) (*Report, error) {
+func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error) {
 	path := fmt.Sprintf("reports/%d/", id)
-	req, err := srv.client.newRequest("GET", path, nil)
+	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to make request %q:%w", path, err)
 	}
 
 	var report Report
-	if _, err = srv.client.do(req, &report); err != nil {
+	if _, err = srv.client.httpClient.Do(ctx, req, &report); err != nil {
 		return nil, fmt.Errorf("failed to do request %q:%w", path, err)
 	}
 

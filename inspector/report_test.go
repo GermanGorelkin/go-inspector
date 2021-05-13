@@ -1,11 +1,11 @@
 package inspector
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
 	"time"
 
@@ -32,13 +32,13 @@ func TestReportService_GetReport(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	inst, _ := url.Parse(ts.URL)
-	client := NewClient(ClintConf{
-		Instance: inst,
+	client, err := NewClient(ClintConf{
+		Instance: ts.URL,
 		APIKey:   "",
 	})
+	assert.NoError(t, err)
 
-	report, err := client.Report.GetReport(1)
+	report, err := client.Report.GetReport(context.Background(), 1)
 	assert.NoError(t, err)
 
 	// prepare dates

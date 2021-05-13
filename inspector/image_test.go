@@ -1,15 +1,16 @@
 package inspector
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestImageService_UploadByURL(t *testing.T) {
@@ -40,13 +41,13 @@ func TestImageService_UploadByURL(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	inst, _ := url.Parse(ts.URL)
-	client := NewClient(ClintConf{
-		Instance: inst,
+	client, err := NewClient(ClintConf{
+		Instance: ts.URL,
 		APIKey:   "",
 	})
+	assert.NoError(t, err)
 
-	img, err := client.Image.UploadByURL(imgUrl)
+	img, err := client.Image.UploadByURL(context.Background(), imgUrl)
 	assert.NoError(t, err)
 
 	date, _ := time.Parse(time.RFC3339, "2016-08-31T10:32:15.687287Z")

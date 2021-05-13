@@ -3,8 +3,9 @@ module github.com/germangorelkin/go-inspector
 go 1.16
 
 require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/germangorelkin/http-client v0.3.0
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/pkg/errors v0.8.1
-	github.com/sirupsen/logrus v1.4.2
-	github.com/stretchr/testify v1.2.2
+	github.com/stretchr/testify v1.7.0
 )

@@ -1,7 +1,9 @@
 package inspector
 
 import (
+	"context"
 	"fmt"
+
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 )
@@ -24,9 +26,9 @@ type SkuService struct {
 	client *Client
 }
 
-func (srv *SkuService) GetSKU(offset, limit int) (*Pagination, error) {
+func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Pagination, error) {
 	path := "sku/"
-	req, err := srv.client.newRequest("GET", path, nil)
+	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +36,7 @@ func (srv *SkuService) GetSKU(offset, limit int) (*Pagination, error) {
 	req.URL.RawQuery += q
 
 	var pag Pagination
-	_, err = srv.client.do(req, &pag)
+	_, err = srv.client.httpClient.Do(ctx, req, &pag)
 	if err != nil {
 		return nil, err
 	}

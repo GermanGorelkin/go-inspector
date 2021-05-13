@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"context"
 	"time"
 )
 
@@ -17,15 +18,15 @@ type VisitService struct {
 	client *Client
 }
 
-func (srv *VisitService) AddVisit(v *Visit) (*Visit, error) {
+func (srv *VisitService) AddVisit(ctx context.Context, v *Visit) (*Visit, error) {
 	rd := struct{}{}
 
-	req, err := srv.client.newRequest("POST", "visits/", rd)
+	req, err := srv.client.httpClient.NewRequest("POST", "visits/", rd)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = srv.client.do(req, v)
+	_, err = srv.client.httpClient.Do(ctx, req, v)
 	if err != nil {
 		return nil, err
 	}
