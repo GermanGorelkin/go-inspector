@@ -2,6 +2,7 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -23,12 +24,12 @@ func (srv *VisitService) AddVisit(ctx context.Context, v *Visit) (*Visit, error)
 
 	req, err := srv.client.httpClient.NewRequest("POST", "visits/", rd)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to NewRequest(POST, visits/):%w", err)
 	}
 
 	_, err = srv.client.httpClient.Do(ctx, req, v)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to Do with Request(POST, visits/):%w", err)
 	}
 
 	return v, nil

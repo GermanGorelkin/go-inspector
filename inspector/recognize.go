@@ -2,6 +2,7 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -30,13 +31,13 @@ type RecognizeResponse struct {
 func (srv *RecognizeService) Recognize(ctx context.Context, rr RecognizeRequest) (*RecognizeResponse, error) {
 	req, err := srv.client.httpClient.NewRequest("POST", "recognize/", rr)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to NewRequest(POST, recognize/, %v):%w", rr, err)
 	}
 
 	var rec RecognizeResponse
 	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to Do with Request(POST, recognize/, %v):%w", rr, err)
 	}
 
 	return &rec, nil
@@ -55,13 +56,13 @@ type RecognitionErrorResponse struct {
 func (srv *RecognizeService) RecognitionError(ctx context.Context, rr *RecognitionErrorRequest) (*RecognitionErrorResponse, error) {
 	req, err := srv.client.httpClient.NewRequest("POST", "recognition_error/", rr)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to NewRequest(POST, recognition_error/, %v):%w", rr, err)
 	}
 
 	var rec RecognitionErrorResponse
 	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to Do with Request(POST, recognition_error/, %v):%w", rr, err)
 	}
 
 	return &rec, nil

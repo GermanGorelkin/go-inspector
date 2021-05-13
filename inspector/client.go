@@ -38,7 +38,7 @@ func NewClient(cfg ClintConf) (*Client, error) {
 		httpclient.SetBaseURL(cfg.Instance),
 		httpclient.SetAuthorization("Token", cfg.APIKey))
 	if err != nil {
-		return nil, fmt.Errorf("failed to httpclient.New:%w", err)
+		return nil, fmt.Errorf("failed to build http-client:%w", err)
 	}
 
 	c := &Client{
