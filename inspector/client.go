@@ -36,9 +36,9 @@ type ClintConf struct {
 func NewClient(cfg ClintConf) (*Client, error) {
 	cl, err := httpclient.New(
 		&http.Client{Timeout: 30 * time.Second},
-		httpclient.SetBaseURL(cfg.Instance),
-		httpclient.SetAuthorization(cfg.APIKey, "Token"),
-		httpclient.SetInterceptor(httpclient.ResponseInterceptor))
+		httpclient.WithBaseURL(cfg.Instance),
+		httpclient.WithAuthorization(fmt.Sprintf("%s %s", "Token", cfg.APIKey)),
+		httpclient.WithInterceptor(httpclient.ResponseInterceptor))
 	if err != nil {
 		return nil, fmt.Errorf("failed to build http-client:%w", err)
 	}
