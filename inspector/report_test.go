@@ -103,87 +103,7 @@ func TestReportService_ToFacingCount(t *testing.T) {
 	assert.Equal(t, want, got)
 }
 
-//func TestReportService_ToPriceTags(t *testing.T) {
-//	b := `[
-//        {
-//            "sku_image_url": "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
-//            "price_tag_colors": [
-//                "white"
-//            ],
-//            "category": "LAUNDRY",
-//            "sku_id": 12176,
-//            "colors": [
-//                {
-//                    "color": "white",
-//                    "score": 0.97222222
-//                }
-//            ],
-//            "min_price": 40.0,
-//            "name": "Vernel 910/1000 Детский",
-//            "promo": "No",
-//            "price": 40.0,
-//            "brand": "vernel",
-//            "manufacturer": "Henkel",
-//            "max_price": 40.0
-//        },
-//        {
-//            "sku_image_url": "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
-//            "price_tag_colors": [
-//                "white"
-//            ],
-//            "category": "LAUNDRY",
-//            "sku_id": 12177,
-//            "colors": [
-//                {
-//                    "color": "white",
-//                    "score": 0.87152778
-//                }
-//            ],
-//            "min_price": 177.0,
-//            "name": "Vernel 910/1000 Гибискус и Роза",
-//            "promo": "No",
-//            "price": 177.0,
-//            "brand": "vernel",
-//            "manufacturer": "Henkel",
-//            "max_price": 177.0
-//        }]`
-//	var m []map[string]interface{}
-//	err := json.Unmarshal([]byte(b), &m)
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//
-//	var srv ReportService
-//	got, err := srv.ToPriceTags(m)
-//	assert.NoError(t, err)
-//
-//	want := []ReportPriceTagsJson{
-//		{
-//			Brand:        "vernel",
-//			Manufacturer: "Henkel",
-//			Price:        40.0,
-//			Name:         "Vernel 910/1000 Детский",
-//			Category:     "LAUNDRY",
-//			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/f8837b16-3987-4248-b244-dda1960a7b38.jpg",
-//			Promo:        "0",
-//			SkuId:        12176,
-//		},
-//		{
-//			Brand:        "vernel",
-//			Manufacturer: "Henkel",
-//			Price:        177.0,
-//			Name:         "Vernel 910/1000 Гибискус и Роза",
-//			Category:     "LAUNDRY",
-//			SkuImageUrl:  "http://henkel.inspector-cloud.ru/media/40327d62-b4e5-4d52-bf37-63152a1b4e66.jpg",
-//			Promo:        "0",
-//			SkuId:        12177,
-//		},
-//	}
-//
-//	assert.Equal(t, want, got)
-//}
-
-func TestReportService_ToPriceTags_newdata(t *testing.T) {
+func TestReportService_ToPriceTags(t *testing.T) {
 	b := `[
               {
         "promo": true,
@@ -237,6 +157,67 @@ func TestReportService_ToPriceTags_newdata(t *testing.T) {
 	assert.Equal(t, want, got)
 }
 
+func TestReportService_ToRealogram(t *testing.T) {
+	b := `[
+		{
+			"image": 55801587,
+			"annotations": [
+				{
+					"h": 250,
+					"w": 131,
+					"x": 948,
+					"y": 1214,
+					"name": "Losk 2190 Gel Indian Jasmine 30WL",
+					"sku_id": 53733,
+					"duplicate": false
+				}
+			],
+			"shelf_annotations": [
+				{
+					"x1": -14,
+					"x2": 1118,
+					"y1": 1362,
+					"y2": 1349
+				}
+			]
+		}
+	]`
+	var m []map[string]interface{}
+	err := json.Unmarshal([]byte(b), &m)
+	assert.NoError(t, err)
+
+	var srv ReportService
+	got, err := srv.ToRealogram(m)
+	assert.NoError(t, err)
+
+	want := []ReportRealogramJson{
+		{
+			Image: 55801587,
+			Annotations: []ReportRealogramAnnotations{
+				{
+					H:         250,
+					W:         131,
+					X:         948,
+					Y:         1214,
+					Name:      "Losk 2190 Gel Indian Jasmine 30WL",
+					SkuId:     53733,
+					Duplicate: false,
+				},
+			},
+			ShelfAnnotations: []ReportRealogramShelfAnnotations{
+				{
+					X1: -14,
+					Y1: 1362,
+					X2: 1118,
+					Y2: 1349,
+				},
+			},
+		},
+	}
+
+	assert.Equal(t, want, got)
+}
+
 func TestReportService_ParseWebhookReports(t *testing.T) {
 	b := []byte(`{
 		"id": 406907,
@@ -276,7 +257,31 @@ func TestReportService_ParseWebhookReports(t *testing.T) {
 				"white",
 				"red"
 				]
-			}]
+			}],
+		"REALOGRAM_1_5":[
+			{
+				"image": 55801587,
+				"annotations": [
+					{
+						"h": 250,
+						"w": 131,
+						"x": 948,
+						"y": 1214,
+						"name": "Losk 2190 Gel Indian Jasmine 30WL",
+						"sku_id": 53733,
+						"duplicate": false
+					}
+				],
+				"shelf_annotations": [
+					{
+						"x1": -14,
+						"x2": 1118,
+						"y1": 1362,
+						"y2": 1349
+					}
+				]
+			}
+		]
 		}
 	  }`)
 
@@ -291,6 +296,7 @@ func TestReportService_ParseWebhookReports(t *testing.T) {
 		Reports: struct {
 			FacingCount []ReportFacingCountJson `json:"FACING_COUNT_1_5"`
 			PriceTags   []ReportPriceTagsJson   `json:"PRICE_TAGS"`
+			Realogram   []ReportRealogramJson   `json:"REALOGRAM_1_5"`
 		}{
 			FacingCount: []ReportFacingCountJson{
 				{
@@ -310,8 +316,31 @@ func TestReportService_ParseWebhookReports(t *testing.T) {
 					SkuId:        9859,
 				},
 			},
+			Realogram: []ReportRealogramJson{
+				{
+					Image: 55801587,
+					Annotations: []ReportRealogramAnnotations{
+						{
+							H:         250,
+							W:         131,
+							X:         948,
+							Y:         1214,
+							Name:      "Losk 2190 Gel Indian Jasmine 30WL",
+							SkuId:     53733,
+							Duplicate: false,
+						},
+					},
+					ShelfAnnotations: []ReportRealogramShelfAnnotations{
+						{
+							X1: -14,
+							Y1: 1362,
+							X2: 1118,
+							Y2: 1349,
+						},
+					},
+				},
+			},
 		},
 	}
-
 	assert.Equal(t, want, got)
 }

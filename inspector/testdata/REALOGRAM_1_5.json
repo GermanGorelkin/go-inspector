@@ -1,0 +1,627 @@
+{
+    "id": 23080146,
+    "status": "READY",
+    "report_type": "REALOGRAM_1_5",
+    "created_date": "2021-07-03T07:30:38.888122Z",
+    "updated_date": "2021-07-03T07:30:48.302296Z",
+    "visit": 485538,
+    "json": [
+        {
+            "image": 55801587,
+            "annotations": [
+                {
+                    "h": 250,
+                    "w": 131,
+                    "x": 948,
+                    "y": 1214,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 206,
+                    "w": 122,
+                    "x": 925,
+                    "y": 860,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 85,
+                    "w": 134,
+                    "x": 477,
+                    "y": 593,
+                    "name": "LOSK 12 Trio-Caps Color",
+                    "sku_id": 61109,
+                    "duplicate": false
+                },
+                {
+                    "h": 80,
+                    "w": 129,
+                    "x": 619,
+                    "y": 678,
+                    "name": "LOSK 12 Trio-Caps Color",
+                    "sku_id": 61109,
+                    "duplicate": false
+                },
+                {
+                    "h": 80,
+                    "w": 128,
+                    "x": 617,
+                    "y": 600,
+                    "name": "LOSK 12 Trio-Caps Color",
+                    "sku_id": 61109,
+                    "duplicate": false
+                },
+                {
+                    "h": 48,
+                    "w": 111,
+                    "x": 603,
+                    "y": 541,
+                    "name": "Losk 14/15 авт капс Колор",
+                    "sku_id": 26541,
+                    "duplicate": false
+                },
+                {
+                    "h": 43,
+                    "w": 119,
+                    "x": 480,
+                    "y": 539,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 250,
+                    "w": 135,
+                    "x": 799,
+                    "y": 1215,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 211,
+                    "w": 111,
+                    "x": 668,
+                    "y": 863,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 85,
+                    "w": 133,
+                    "x": 478,
+                    "y": 681,
+                    "name": "LOSK 12 Trio-Caps Color",
+                    "sku_id": 61109,
+                    "duplicate": false
+                },
+                {
+                    "h": 254,
+                    "w": 144,
+                    "x": 645,
+                    "y": 1213,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 205,
+                    "w": 111,
+                    "x": 542,
+                    "y": 862,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 211,
+                    "w": 123,
+                    "x": 802,
+                    "y": 863,
+                    "name": "Losk 2190 Gel Indian Jasmine 30WL",
+                    "sku_id": 53733,
+                    "duplicate": false
+                },
+                {
+                    "h": 178,
+                    "w": 84,
+                    "x": 344,
+                    "y": 879,
+                    "name": "Laska 1000 Жид. Для Темного",
+                    "sku_id": 48805,
+                    "duplicate": false
+                },
+                {
+                    "h": 178,
+                    "w": 85,
+                    "x": 258,
+                    "y": 878,
+                    "name": "Laska 1000 Жид. Для Темного",
+                    "sku_id": 48805,
+                    "duplicate": false
+                },
+                {
+                    "h": 187,
+                    "w": 89,
+                    "x": 170,
+                    "y": 878,
+                    "name": "Laska 1000 Шерсть и Шелк NEW",
+                    "sku_id": 48807,
+                    "duplicate": false
+                },
+                {
+                    "h": 181,
+                    "w": 91,
+                    "x": 433,
+                    "y": 877,
+                    "name": "Losk 1460 Gel Indian Jasmine 20WL",
+                    "sku_id": 53736,
+                    "duplicate": false
+                },
+                {
+                    "h": 82,
+                    "w": 133,
+                    "x": 338,
+                    "y": 680,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                },
+                {
+                    "h": 197,
+                    "w": 96,
+                    "x": 842,
+                    "y": 622,
+                    "name": "Losk 1460 Gel Indian Jasmine 20WL",
+                    "sku_id": 53736,
+                    "duplicate": false
+                },
+                {
+                    "h": 83,
+                    "w": 140,
+                    "x": 191,
+                    "y": 679,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                },
+                {
+                    "h": 199,
+                    "w": 96,
+                    "x": 733,
+                    "y": 624,
+                    "name": "Losk 1460 Gel Indian Jasmine 20WL",
+                    "sku_id": 53736,
+                    "duplicate": false
+                },
+                {
+                    "h": 308,
+                    "w": 159,
+                    "x": 313,
+                    "y": 1204,
+                    "name": "Laska 4000 Care&Repair 66WL",
+                    "sku_id": 65853,
+                    "duplicate": false
+                },
+                {
+                    "h": 297,
+                    "w": 150,
+                    "x": 486,
+                    "y": 1195,
+                    "name": "Laska 3000 Жид. Уход и Свежесть (50 ст)",
+                    "sku_id": 26536,
+                    "duplicate": false
+                },
+                {
+                    "h": 305,
+                    "w": 164,
+                    "x": 148,
+                    "y": 1208,
+                    "name": "Laska 3000 Жид. Для Цветного (50ст) NEW",
+                    "sku_id": 48809,
+                    "duplicate": false
+                },
+                {
+                    "h": 199,
+                    "w": 92,
+                    "x": 953,
+                    "y": 621,
+                    "name": "Losk 1460 Gel Indian Jasmine 20WL",
+                    "sku_id": 53736,
+                    "duplicate": false
+                },
+                {
+                    "h": 84,
+                    "w": 145,
+                    "x": 194,
+                    "y": 596,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                },
+                {
+                    "h": 82,
+                    "w": 136,
+                    "x": 337,
+                    "y": 599,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                },
+                {
+                    "h": 52,
+                    "w": 122,
+                    "x": 351,
+                    "y": 535,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                },
+                {
+                    "h": 55,
+                    "w": 127,
+                    "x": 223,
+                    "y": 528,
+                    "name": "LOSK 12 Trio-Caps Malaysian Flower",
+                    "sku_id": 61108,
+                    "duplicate": false
+                }
+            ],
+            "shelf_annotations": [
+                {
+                    "x1": -14,
+                    "x2": 1118,
+                    "y1": 1362,
+                    "y2": 1349
+                },
+                {
+                    "x1": -24,
+                    "x2": 1142,
+                    "y1": 994,
+                    "y2": 991
+                },
+                {
+                    "x1": -31,
+                    "x2": 1159,
+                    "y1": 731,
+                    "y2": 735
+                }
+            ]
+        },
+        {
+            "image": 55801588,
+            "annotations": [
+                {
+                    "h": 181,
+                    "w": 61,
+                    "x": 717,
+                    "y": 864,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 183,
+                    "w": 62,
+                    "x": 849,
+                    "y": 867,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 190,
+                    "w": 63,
+                    "x": 921,
+                    "y": 869,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 179,
+                    "w": 57,
+                    "x": 783,
+                    "y": 863,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 181,
+                    "w": 58,
+                    "x": 651,
+                    "y": 863,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 238,
+                    "w": 96,
+                    "x": 754,
+                    "y": 1257,
+                    "name": "Моющая жидкость MR. Proper Лавандовое спокойствие для полов и стен 1л",
+                    "sku_id": 1774,
+                    "duplicate": false
+                },
+                {
+                    "h": 185,
+                    "w": 55,
+                    "x": 527,
+                    "y": 861,
+                    "name": "Средство Mr Muscle для стекол и поверхностей со спиртом, спрей 500мл",
+                    "sku_id": 1610,
+                    "duplicate": false
+                },
+                {
+                    "h": 235,
+                    "w": 95,
+                    "x": 544,
+                    "y": 1263,
+                    "name": "Бытовая химия  o'key любой",
+                    "sku_id": 26736,
+                    "duplicate": false
+                },
+                {
+                    "h": 233,
+                    "w": 92,
+                    "x": 259,
+                    "y": 1252,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 185,
+                    "w": 60,
+                    "x": 467,
+                    "y": 860,
+                    "name": "Средство Mr Muscle для стекол и поверхностей со спиртом, спрей 500мл",
+                    "sku_id": 1610,
+                    "duplicate": false
+                },
+                {
+                    "h": 237,
+                    "w": 101,
+                    "x": 647,
+                    "y": 1263,
+                    "name": "Моющая жидкость MR. Proper Лавандовое спокойствие для полов и стен 1л",
+                    "sku_id": 1774,
+                    "duplicate": false
+                },
+                {
+                    "h": 230,
+                    "w": 93,
+                    "x": 446,
+                    "y": 1263,
+                    "name": "Бытовая химия  o'key любой",
+                    "sku_id": 26736,
+                    "duplicate": false
+                },
+                {
+                    "h": 183,
+                    "w": 60,
+                    "x": 588,
+                    "y": 863,
+                    "name": "Средство Mr Muscle для стекол с нашатырным спиртом, спрей 500мл",
+                    "sku_id": 1488,
+                    "duplicate": false
+                },
+                {
+                    "h": 224,
+                    "w": 86,
+                    "x": 856,
+                    "y": 1270,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 222,
+                    "w": 71,
+                    "x": 941,
+                    "y": 1269,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 185,
+                    "w": 64,
+                    "x": 672,
+                    "y": 641,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 190,
+                    "w": 68,
+                    "x": 471,
+                    "y": 635,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 183,
+                    "w": 65,
+                    "x": 605,
+                    "y": 641,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 199,
+                    "w": 74,
+                    "x": 263,
+                    "y": 628,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 181,
+                    "w": 64,
+                    "x": 402,
+                    "y": 858,
+                    "name": "Средство Mr Muscle для стекол и поверхностей со спиртом, спрей 500мл",
+                    "sku_id": 1610,
+                    "duplicate": false
+                },
+                {
+                    "h": 226,
+                    "w": 97,
+                    "x": 167,
+                    "y": 1244,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 197,
+                    "w": 64,
+                    "x": 740,
+                    "y": 637,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 230,
+                    "w": 96,
+                    "x": 352,
+                    "y": 1260,
+                    "name": "Unknown",
+                    "sku_id": 2,
+                    "duplicate": false
+                },
+                {
+                    "h": 181,
+                    "w": 62,
+                    "x": 538,
+                    "y": 640,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 196,
+                    "w": 66,
+                    "x": 812,
+                    "y": 636,
+                    "name": "Мистер Мускул Эксперт для ванной 5в1 500мл (спрей)",
+                    "sku_id": 47328,
+                    "duplicate": false
+                },
+                {
+                    "h": 188,
+                    "w": 67,
+                    "x": 401,
+                    "y": 635,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 180,
+                    "w": 60,
+                    "x": 270,
+                    "y": 859,
+                    "name": "Средство Mr Muscle для стекол \"Лесные ягоды\", спрей 500мл",
+                    "sku_id": 1830,
+                    "duplicate": false
+                },
+                {
+                    "h": 191,
+                    "w": 75,
+                    "x": 133,
+                    "y": 853,
+                    "name": "Средство Mr Muscle для стекол и поверхностей со спиртом, спрей 500мл",
+                    "sku_id": 1610,
+                    "duplicate": false
+                },
+                {
+                    "h": 194,
+                    "w": 67,
+                    "x": 333,
+                    "y": 631,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 183,
+                    "w": 70,
+                    "x": 333,
+                    "y": 858,
+                    "name": "Средство Mr Muscle для стекол и поверхностей со спиртом, спрей 500мл",
+                    "sku_id": 1610,
+                    "duplicate": false
+                },
+                {
+                    "h": 185,
+                    "w": 70,
+                    "x": 204,
+                    "y": 854,
+                    "name": "Средство Mr Muscle для стекол \"Лесные ягоды\", спрей 500мл",
+                    "sku_id": 1830,
+                    "duplicate": false
+                },
+                {
+                    "h": 197,
+                    "w": 73,
+                    "x": 190,
+                    "y": 627,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                },
+                {
+                    "h": 194,
+                    "w": 78,
+                    "x": 898,
+                    "y": 639,
+                    "name": "Мистер Мускул Эксперт для ванной 5в1 500мл (спрей)",
+                    "sku_id": 47328,
+                    "duplicate": false
+                },
+                {
+                    "h": 195,
+                    "w": 74,
+                    "x": 119,
+                    "y": 624,
+                    "name": "Средство чистящее Mr Musclе для удаления извести, 500мл",
+                    "sku_id": 2176,
+                    "duplicate": false
+                }
+            ],
+            "shelf_annotations": [
+                {
+                    "x1": -13,
+                    "x2": 1108,
+                    "y1": 1367,
+                    "y2": 1391
+                },
+                {
+                    "x1": -22,
+                    "x2": 1130,
+                    "y1": 979,
+                    "y2": 996
+                },
+                {
+                    "x1": -28,
+                    "x2": 1144,
+                    "y1": 734,
+                    "y2": 746
+                }
+            ]
+        }
+    ]
+}

@@ -42,6 +42,7 @@ type WebhookReports struct {
 	Reports struct {
 		FacingCount []ReportFacingCountJson `json:"FACING_COUNT_1_5"`
 		PriceTags   []ReportPriceTagsJson   `json:"PRICE_TAGS"`
+		Realogram   []ReportRealogramJson   `json:"REALOGRAM_1_5"`
 	}
 }
 
@@ -59,6 +60,28 @@ type ReportPriceTagsJson struct {
 type ReportFacingCountJson struct {
 	Count int `json:"count"`
 	SkuId int `json:"sku_id" mapstructure:"sku_id"`
+}
+
+type ReportRealogramJson struct {
+	Image            int                               `json:"image"`
+	Annotations      []ReportRealogramAnnotations      `json:"annotations"`
+	ShelfAnnotations []ReportRealogramShelfAnnotations `json:"shelf_annotations" mapstructure:"shelf_annotations"`
+}
+
+type ReportRealogramAnnotations struct {
+	H         int    `json:"h"`
+	W         int    `json:"w"`
+	X         int    `json:"x"`
+	Y         int    `json:"y"`
+	Name      string `json:"name"`
+	SkuId     int    `json:"sku_id" mapstructure:"sku_id"`
+	Duplicate bool   `json:"duplicate"`
+}
+type ReportRealogramShelfAnnotations struct {
+	X1 int `json:"x1"`
+	Y1 int `json:"y1"`
+	X2 int `json:"x2"`
+	Y2 int `json:"y2"`
 }
 
 func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error) {
@@ -86,6 +109,14 @@ func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, err
 
 func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
+	if err := mapstructure.WeakDecode(v, &r); err != nil {
+		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
+	}
+	return r, nil
+}
+
+func (srv *ReportService) ToRealogram(v interface{}) ([]ReportRealogramJson, error) {
+	var r []ReportRealogramJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
 		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
 	}
