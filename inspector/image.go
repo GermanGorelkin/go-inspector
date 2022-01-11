@@ -6,20 +6,23 @@ import (
 	"time"
 )
 
+// ImageService provides access to the Image Uploads functions in the IC API.
 type ImageService struct {
 	client *Client
 }
 
+// Image represents a JPEG image
 type Image struct {
-	ID          int       `json:"id"`
-	URL         string    `json:"url,omitempty"`
-	Width       int       `json:"width"`
-	Height      int       `json:"height"`
-	CreatedDate time.Time `json:"created_date"`
+	ID          int       `json:"id"`            // unique Image ID
+	URL         string    `json:"url,omitempty"` // image URL
+	Width       int       `json:"width"`         // image width in pixels
+	Height      int       `json:"height"`        // image height in pixels
+	CreatedDate time.Time `json:"created_date"`  // date and time of uploading the image
 }
 
+// UploadByUrlRequest represents a payload of upload_by_url
 type UploadByUrlRequest struct {
-	URL string `json:"url"`
+	URL string `json:"url"` // Image URL
 }
 
 // TODO
@@ -38,7 +41,7 @@ type UploadByUrlRequest struct {
 // 	return &img, nil
 // }
 
-// UploadByURL
+// UploadByURL uploads Image to IC API by photos url
 func (srv *ImageService) UploadByURL(ctx context.Context, url string) (*Image, error) {
 	body := UploadByUrlRequest{URL: url}
 

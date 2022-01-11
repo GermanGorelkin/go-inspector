@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	// Report types
 	ReportTypeFACING_COUNT         = "FACING_COUNT"
 	ReportTypeSHARE_OF_SPAC        = "SHARE_OF_SPAC"
 	ReportTypeREALOGRAM            = "REALOGRAM"
@@ -17,25 +18,30 @@ const (
 	ReportTypeMHL_COMPLIANCE       = "MHL_COMPLIANCE"
 	ReportTypePLANOGRAM_COMPLIANCE = "PLANOGRAM_COMPLIANCE"
 
-	ReportStatusNOT_READY = "NOT_READY"
-	ReportStatusREADY     = "READY"
-	ReportStatusERROR     = "ERROR"
+	// Report statuses
+	ReportStatusNOT_READY = "NOT_READY" // the report in the process of preparation. The client must repeat the request later;
+	ReportStatusREADY     = "READY"     // the report was successfully prepared. The client can use the “data” field, see below;
+	ReportStatusERROR     = "ERROR"     // error in the process of preparing the report. The error message is available in the 'error' field.
 )
 
+// ReportService provides access to the Reports functions in the IC API.
 type ReportService struct {
 	client *Client
 }
 
+// Report represents a payload of report
 type Report struct {
-	ID          int         `json:"id"`
-	Status      string      `json:"status"`
-	ReportType  string      `json:"report_type"`
-	CreatedDate time.Time   `json:"created_date,omitempty"`
-	UpdatedDate time.Time   `json:"updated_date,omitempty"`
-	Visit       int         `json:"visit,omitempty"`
-	Json        interface{} `json:"json,omitempty"`
+	ID          int         `json:"id"`                     // unique report ID
+	Status      string      `json:"status"`                 // report status
+	ReportType  string      `json:"report_type"`            // report type
+	CreatedDate time.Time   `json:"created_date,omitempty"` // date and time of report generation
+	UpdatedDate time.Time   `json:"updated_date,omitempty"` // date and time of report update
+	Visit       int         `json:"visit,omitempty"`        // IC Visit ID
+	Json        interface{} `json:"json,omitempty"`         // Report data
 }
 
+// WebhookReports represents a payload of report from webhook
+// Once the reports are generated, JSON will be sent to it with a POST request
 type WebhookReports struct {
 	ID      int `json:"id"`
 	Display int `json:"display"`
@@ -46,6 +52,7 @@ type WebhookReports struct {
 	}
 }
 
+// ReportPriceTagsJson represents a unit of data of PRICE_TAGS report
 type ReportPriceTagsJson struct {
 	Brand        string  `json:"brand,omitempty"`
 	Manufacturer string  `json:"manufacturer,omitempty"`
@@ -57,17 +64,20 @@ type ReportPriceTagsJson struct {
 	SkuId        int     `json:"sku_id" mapstructure:"sku_id"`
 }
 
+// ReportFacingCountJson represents a unit of data of FACING_COUNT report
 type ReportFacingCountJson struct {
 	Count int `json:"count"`
 	SkuId int `json:"sku_id" mapstructure:"sku_id"`
 }
 
+// ReportRealogramJson represents a data of PLANOGRAM_COMPLIANCE report
 type ReportRealogramJson struct {
 	Image            int                               `json:"image"`
 	Annotations      []ReportRealogramAnnotations      `json:"annotations"`
 	ShelfAnnotations []ReportRealogramShelfAnnotations `json:"shelf_annotations" mapstructure:"shelf_annotations"`
 }
 
+// ReportRealogramAnnotations represents a unit of data of RealogramAnnotations report
 type ReportRealogramAnnotations struct {
 	H         int    `json:"h"`
 	W         int    `json:"w"`
@@ -77,6 +87,8 @@ type ReportRealogramAnnotations struct {
 	SkuId     int    `json:"sku_id" mapstructure:"sku_id"`
 	Duplicate bool   `json:"duplicate"`
 }
+
+// ReportRealogramShelfAnnotations represents a unit of data of RealogramShelfAnnotations report
 type ReportRealogramShelfAnnotations struct {
 	X1 int `json:"x1"`
 	Y1 int `json:"y1"`
@@ -84,6 +96,7 @@ type ReportRealogramShelfAnnotations struct {
 	Y2 int `json:"y2"`
 }
 
+// GetReport requests data of report for the given reportID
 func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error) {
 	path := fmt.Sprintf("reports/%d/", id)
 	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
@@ -99,6 +112,7 @@ func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error
 	return &report, nil
 }
 
+// ToPriceTags parses json from Report.Json to []ReportPriceTagsJson
 func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
@@ -107,6 +121,7 @@ func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, err
 	return r, nil
 }
 
+// ToFacingCount parses json from Report.Json to []ReportFacingCountJson
 func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
@@ -115,6 +130,7 @@ func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson,
 	return r, nil
 }
 
+// ToRealogram parses json from Report.Json to []ReportRealogramJson
 func (srv *ReportService) ToRealogram(v interface{}) ([]ReportRealogramJson, error) {
 	var r []ReportRealogramJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
@@ -123,6 +139,7 @@ func (srv *ReportService) ToRealogram(v interface{}) ([]ReportRealogramJson, err
 	return r, nil
 }
 
+// ParseWebhookReports parses json from Webhook request to WebhookReports
 func (srv *ReportService) ParseWebhookReports(b []byte) (*WebhookReports, error) {
 	var reports WebhookReports
 	if err := json.Unmarshal(b, &reports); err != nil {

@@ -15,6 +15,8 @@ type Pagination struct {
 	Results  interface{} `json:"results"`
 }
 
+// Client provides IC API Client.
+// Contains services for access functions in the IC API
 type Client struct {
 	Instance   string
 	APIKey     string
@@ -27,12 +29,14 @@ type Client struct {
 	Visit     *VisitService
 }
 
+// ClintConf holds all of the configuration options for Client
 type ClintConf struct {
 	Instance string
 	APIKey   string
 	Verbose  bool
 }
 
+// NewClient makes a new Client for IC API.
 func NewClient(cfg ClintConf) (*Client, error) {
 	cl, err := httpclient.New(
 		&http.Client{Timeout: 30 * time.Second},
