@@ -45,7 +45,7 @@ func TestImageService_UploadByURL(t *testing.T) {
 	assert.NoError(t, err)
 
 	date, _ := time.Parse(time.RFC3339, "2016-08-31T10:32:15.687287Z")
-	want := &Image{
+	want := Image{
 		ID:          156673,
 		URL:         "https://test.inspector-cloud.com/media/12345678-1234-5678-1234567812345678.jpg",
 		Width:       720,

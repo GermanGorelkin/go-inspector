@@ -42,18 +42,18 @@ type UploadByUrlRequest struct {
 // }
 
 // UploadByURL uploads Image to IC API by photos url
-func (srv *ImageService) UploadByURL(ctx context.Context, url string) (*Image, error) {
+func (srv *ImageService) UploadByURL(ctx context.Context, url string) (Image, error) {
+	var img Image
 	body := UploadByUrlRequest{URL: url}
 
 	req, err := srv.client.httpClient.NewRequest("POST", "uploads/upload_by_url/", body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(POST, uploads/upload_by_url/, %v):%w", body, err)
+		return img, fmt.Errorf("failed to NewRequest(POST, uploads/upload_by_url/, %v):%w", body, err)
 	}
 
-	img := new(Image)
-	_, err = srv.client.httpClient.Do(ctx, req, img)
+	_, err = srv.client.httpClient.Do(ctx, req, &img)
 	if err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(POST, uploads/upload_by_url/, %v):%w", body, err)
+		return img, fmt.Errorf("failed to Do with Request(POST, uploads/upload_by_url/, %v):%w", body, err)
 	}
 
 	return img, nil
