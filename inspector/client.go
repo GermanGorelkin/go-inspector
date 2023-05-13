@@ -31,15 +31,23 @@ type Client struct {
 
 // ClintConf holds all of the configuration options for Client
 type ClintConf struct {
-	Instance string
-	APIKey   string
-	Verbose  bool
+	Instance   string
+	APIKey     string
+	Verbose    bool
+	HTTPClient *http.Client
 }
 
 // NewClient makes a new Client for IC API.
 func NewClient(cfg ClintConf) (*Client, error) {
+	var httpc *http.Client
+	if cfg.HTTPClient == nil {
+		httpc = &http.Client{Timeout: 30 * time.Second}
+	} else {
+		httpc = cfg.HTTPClient
+	}
+
 	cl, err := httpclient.New(
-		&http.Client{Timeout: 30 * time.Second},
+		httpc,
 		httpclient.WithBaseURL(cfg.Instance),
 		httpclient.WithAuthorization(fmt.Sprintf("%s %s", "Token", cfg.APIKey)),
 		httpclient.WithInterceptor(httpclient.ResponseInterceptor))
