@@ -1,6 +1,7 @@
 package inspector
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"time"
@@ -39,7 +40,7 @@ type ClintConf struct {
 // NewClient makes a new Client for IC API.
 func NewClient(cfg ClintConf) (*Client, error) {
 	cl, err := httpclient.New(
-		&http.Client{Timeout: 30 * time.Second},
+		GetHTTPClient(),
 		httpclient.WithBaseURL(cfg.Instance),
 		httpclient.WithAuthorization(fmt.Sprintf("%s %s", "Token", cfg.APIKey)),
 		httpclient.WithInterceptor(httpclient.ResponseInterceptor))
@@ -64,4 +65,25 @@ func NewClient(cfg ClintConf) (*Client, error) {
 	c.Visit = &VisitService{client: c}
 
 	return c, nil
+}
+
+// GetHTTPClient
+func GetHTTPClient() *http.Client {
+	return &http.Client{
+		Timeout: 30 * time.Second,
+		Transport: &http.Transport{
+			TLSHandshakeTimeout: 5 * time.Second,
+			TLSClientConfig: &tls.Config{
+				MinVersion: tls.VersionTLS12,
+				CipherSuites: []uint16{
+					tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+					tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+					tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, // Go 1.8 only
+					tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,   // Go 1.8 only
+					tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+					tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+				},
+			},
+		},
+	}
 }
