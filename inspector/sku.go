@@ -22,7 +22,7 @@ type Sku struct {
 	SizeZMM      *float64 `json:"size_z_mm,omitempty" mapstructure:"size_z_mm"` // Product depth in mm
 }
 
-//ReportService provides access to the SKU functions in the IC API.
+// ReportService provides access to the SKU functions in the IC API.
 type SkuService struct {
 	client *Client
 }
@@ -49,7 +49,7 @@ func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Paginati
 }
 
 // ToSku parses json to []Sku
-func (srv *SkuService) ToSku(v interface{}) ([]Sku, error) {
+func (srv *SkuService) ToSku(v any) ([]Sku, error) {
 	var r []Sku
 	if err := mapstructure.Decode(v, &r); err != nil {
 		return r, fmt.Errorf("failed to Decode %v:%w", v, err)

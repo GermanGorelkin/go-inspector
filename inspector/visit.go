@@ -16,7 +16,7 @@ type Visit struct {
 	Longitude   float64   `json:"longitude,omitempty"` // Location of the merchandiser at the time of the visit.
 }
 
-//VisitService provides access to the Visit functions in the IC API.
+// VisitService provides access to the Visit functions in the IC API.
 type VisitService struct {
 	client *Client
 }

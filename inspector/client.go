@@ -8,11 +8,12 @@ import (
 	httpclient "github.com/germangorelkin/http-client"
 )
 
+// Pagination represents paginated response from IC API.
 type Pagination struct {
-	Count    int         `json:"count"`
-	Next     *string     `json:"next,omitempty"`
-	Previous *string     `json:"previous,omitempty"`
-	Results  interface{} `json:"results"`
+	Count    int     `json:"count"`
+	Next     *string `json:"next,omitempty"`
+	Previous *string `json:"previous,omitempty"`
+	Results  any     `json:"results"`
 }
 
 // Client provides IC API Client.

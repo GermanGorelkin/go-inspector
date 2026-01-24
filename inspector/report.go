@@ -31,13 +31,13 @@ type ReportService struct {
 
 // Report represents a payload of report
 type Report struct {
-	ID          int         `json:"id"`                     // unique report ID
-	Status      string      `json:"status"`                 // report status
-	ReportType  string      `json:"report_type"`            // report type
-	CreatedDate time.Time   `json:"created_date,omitempty"` // date and time of report generation
-	UpdatedDate time.Time   `json:"updated_date,omitempty"` // date and time of report update
-	Visit       int         `json:"visit,omitempty"`        // IC Visit ID
-	Json        interface{} `json:"json,omitempty"`         // Report data
+	ID          int       `json:"id"`                     // unique report ID
+	Status      string    `json:"status"`                 // report status
+	ReportType  string    `json:"report_type"`            // report type
+	CreatedDate time.Time `json:"created_date,omitempty"` // date and time of report generation
+	UpdatedDate time.Time `json:"updated_date,omitempty"` // date and time of report update
+	Visit       int       `json:"visit,omitempty"`        // IC Visit ID
+	Json        any       `json:"json,omitempty"`         // Report data
 }
 
 // WebhookReports represents a payload of report from webhook
@@ -113,7 +113,7 @@ func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error
 }
 
 // ToPriceTags parses json from Report.Json to []ReportPriceTagsJson
-func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, error) {
+func (srv *ReportService) ToPriceTags(v any) ([]ReportPriceTagsJson, error) {
 	var r []ReportPriceTagsJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
 		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
@@ -122,7 +122,7 @@ func (srv *ReportService) ToPriceTags(v interface{}) ([]ReportPriceTagsJson, err
 }
 
 // ToFacingCount parses json from Report.Json to []ReportFacingCountJson
-func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson, error) {
+func (srv *ReportService) ToFacingCount(v any) ([]ReportFacingCountJson, error) {
 	var r []ReportFacingCountJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
 		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
@@ -131,7 +131,7 @@ func (srv *ReportService) ToFacingCount(v interface{}) ([]ReportFacingCountJson,
 }
 
 // ToRealogram parses json from Report.Json to []ReportRealogramJson
-func (srv *ReportService) ToRealogram(v interface{}) ([]ReportRealogramJson, error) {
+func (srv *ReportService) ToRealogram(v any) ([]ReportRealogramJson, error) {
 	var r []ReportRealogramJson
 	if err := mapstructure.WeakDecode(v, &r); err != nil {
 		return r, fmt.Errorf("failed to WeakDecode %v:%w", v, err)
