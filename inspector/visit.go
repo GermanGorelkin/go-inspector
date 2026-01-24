@@ -21,19 +21,18 @@ type VisitService struct {
 	client *Client
 }
 
-// AddVisit adds new IC visit
-func (srv *VisitService) AddVisit(ctx context.Context, v *Visit) (*Visit, error) {
-	rd := struct{}{}
-
-	req, err := srv.client.httpClient.NewRequest("POST", "visits/", rd)
+// AddVisit adds new IC visit with server-side defaults
+func (srv *VisitService) AddVisit(ctx context.Context) (*Visit, error) {
+	req, err := srv.client.httpClient.NewRequest("POST", "visits/", struct{}{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to NewRequest(POST, visits/):%w", err)
 	}
 
-	_, err = srv.client.httpClient.Do(ctx, req, v)
+	resp := &Visit{}
+	_, err = srv.client.httpClient.Do(ctx, req, resp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to Do with Request(POST, visits/):%w", err)
 	}
 
-	return v, nil
+	return resp, nil
 }

@@ -1,5 +1,7 @@
 # go-inspector
 
+# go-inspector
+
 Go SDK for [Inspector Cloud](https://inspectorcloud.com) retail image recognition API. Provides a service-oriented client with typed helpers for uploads, recognition, reports, SKU data, and visits. Tested on Go 1.24.
 
 - **Current version:** v1.1.0
@@ -104,7 +106,7 @@ Webhook users can parse payloads with `inspector.ParseWebhookReports(body)`.
 
 ### Additional helpers
 
-- **Visits:** `cli.Visit.AddVisit(ctx, &inspector.Visit{Shop: 123, Agent: "John Doe"})`
+- **Visits:** `cli.Visit.AddVisit(ctx)` (request body `{}`; server assigns defaults)
 - **SKU pagination:**
 
   ```go

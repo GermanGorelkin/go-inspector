@@ -235,12 +235,7 @@ type Visit struct {
 
 2. **Create Visit (Optional)**
    ```go
-   visit, err := client.Visit.AddVisit(ctx, &inspector.Visit{
-       Shop:      123,
-       Agent:     "John Doe",
-       Latitude:  55.7558,
-       Longitude: 37.6173,
-   })
+   visit, err := client.Visit.AddVisit(ctx)
    ```
 
 3. **Trigger Recognition**
