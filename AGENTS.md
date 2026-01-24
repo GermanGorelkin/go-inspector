@@ -416,6 +416,11 @@ Agent: "Updated timeout to 30s. I've completed Step 2: Added unit tests.
         Please review before I proceed to Step 3 (updating documentation)."
 ```
 
+#### 4. Track Progress
+
+- Immediately mark each plan step or tracked task as completed once it’s done so reviewers can see progress without rereading the whole plan.
+- Keep unchecked items accurate; if the scope changes, update the checklist instead of leaving stale entries.
+
 ### Plan Template
 
 Use this template for `.opencode/plan/YYYY-MM-DD_task_name.md`:
