@@ -39,10 +39,11 @@ func main() {
 	apiKey := os.Getenv("API_KEY")
 	instance := os.Getenv("INSTANCE") // e.g. https://demo.inspector-cloud.ru/api/v1.5/
 
-	cli, err := inspector.NewClient(inspector.ClintConf{
+	cli, err := inspector.NewClient(inspector.ClientConf{
 		APIKey:   apiKey,
 		Instance: instance,
-		Verbose:  true, // optional HTTP dump interceptor
+		Verbose:  true,              // optional HTTP dump interceptor
+		Timeout:  45 * time.Second,  // optional custom timeout (defaults to 30s)
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -51,7 +52,7 @@ func main() {
 	ctx := context.Background()
 	_ = ctx // reuse across calls
 }
-```
+# `ClintConf` alias remains available for backward compatibility.
 
 ### 2. Upload an image by URL
 

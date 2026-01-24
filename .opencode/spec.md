@@ -44,12 +44,16 @@ Each service:
 
 #### Client Configuration
 ```go
-type ClintConf struct {  // Note: typo in name (should be ClientConf)
+type ClientConf struct {
     Instance   string        // API base URL
     APIKey     string        // Authentication key
     Verbose    bool          // Enable HTTP logging
     HTTPClient *http.Client  // Optional custom HTTP client
+    Timeout    time.Duration // Optional HTTP timeout (default 30s)
 }
+
+// Historical typo retained via alias for backward compatibility.
+type ClintConf = ClientConf
 ```
 
 #### Pagination

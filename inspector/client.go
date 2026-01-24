@@ -18,9 +18,10 @@ type Pagination struct {
 // Client provides IC API Client.
 // Contains services for access functions in the IC API
 type Client struct {
-	Instance   string
-	APIKey     string
-	httpClient *httpclient.Client
+	Instance    string
+	APIKey      string
+	httpClient  *httpclient.Client
+	httpTimeout time.Duration
 
 	Image     *ImageService
 	Recognize *RecognizeService
@@ -29,19 +30,27 @@ type Client struct {
 	Visit     *VisitService
 }
 
-// ClintConf holds all of the configuration options for Client
-type ClintConf struct {
+// ClientConf holds all of the configuration options for Client.
+type ClientConf struct {
 	Instance   string
 	APIKey     string
 	Verbose    bool
 	HTTPClient *http.Client
+	Timeout    time.Duration
 }
 
+// ClintConf is kept for backward compatibility with the historical typo.
+type ClintConf = ClientConf
+
 // NewClient makes a new Client for IC API.
-func NewClient(cfg ClintConf) (*Client, error) {
+func NewClient(cfg ClientConf) (*Client, error) {
 	var httpc *http.Client
 	if cfg.HTTPClient == nil {
-		httpc = &http.Client{Timeout: 30 * time.Second}
+		timeout := cfg.Timeout
+		if timeout == 0 {
+			timeout = 30 * time.Second
+		}
+		httpc = &http.Client{Timeout: timeout}
 	} else {
 		httpc = cfg.HTTPClient
 	}
@@ -61,9 +70,10 @@ func NewClient(cfg ClintConf) (*Client, error) {
 	}
 
 	c := &Client{
-		APIKey:     cfg.APIKey,
-		Instance:   cfg.Instance,
-		httpClient: cl,
+		APIKey:      cfg.APIKey,
+		Instance:    cfg.Instance,
+		httpClient:  cl,
+		httpTimeout: httpc.Timeout,
 	}
 	c.Image = &ImageService{client: c}
 	c.Recognize = &RecognizeService{client: c}
