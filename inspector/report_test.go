@@ -344,3 +344,10 @@ func TestReportService_ParseWebhookReports(t *testing.T) {
 	}
 	assert.Equal(t, want, got)
 }
+
+func TestReportService_ParseWebhookReports_Error(t *testing.T) {
+	var srv ReportService
+	_, err := srv.ParseWebhookReports([]byte(`{`))
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "failed to Unmarshal")
+}

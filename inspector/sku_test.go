@@ -54,4 +54,10 @@ func TestSkuService_ToSku(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, 0, len(lsku))
 	})
+
+	t.Run("invalid structure", func(t *testing.T) {
+		_, err := serv.ToSku(map[string]string{"bad": "data"})
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "failed to Decode")
+	})
 }

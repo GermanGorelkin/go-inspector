@@ -63,3 +63,34 @@ func TestRecognizeService_Recognize(t *testing.T) {
 
 	assert.Equal(t, want, recRes)
 }
+
+func TestRecognizeService_RecognitionError(t *testing.T) {
+	req := &RecognitionErrorRequest{
+		Images:  []int{42},
+		SkuId:   777,
+		Scene:   "scene_test",
+		Message: "wrong sku",
+	}
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		assert.Equal(t, "/recognition_error/", r.URL.Path)
+		b, err := ioutil.ReadAll(r.Body)
+		assert.NoError(t, err)
+		var got RecognitionErrorRequest
+		err = json.Unmarshal(b, &got)
+		assert.NoError(t, err)
+		assert.Equal(t, *req, got)
+
+		_, err = fmt.Fprintln(w, `{"recognition_error_id":99}`)
+		assert.NoError(t, err)
+	}))
+	defer ts.Close()
+
+	client, err := NewClient(ClintConf{Instance: ts.URL, APIKey: ""})
+	assert.NoError(t, err)
+
+	resp, err := client.Recognize.RecognitionError(context.Background(), req)
+	assert.NoError(t, err)
+	assert.Equal(t, &RecognitionErrorResponse{RecognitionErrorID: 99}, resp)
+}
