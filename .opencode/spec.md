@@ -6,7 +6,7 @@
 
 - **Repository:** github.com/germangorelkin/go-inspector
 - **License:** MIT License (Copyright 2021 German Gorelkin)
-- **Go Version:** 1.20
+- **Go Version:** 1.24
 - **Current Version:** v1.1.0
 - **Package:** `inspector`
 
@@ -407,7 +407,7 @@ go test ./inspector -run TestImageService_UploadByURL -v
 **GitHub Actions** (`.github/workflows/test.yml`):
 - Triggers: Push, Pull Request
 - Platforms: Ubuntu, macOS, Windows
-- Go Version: 1.17.x (Note: go.mod specifies 1.20 - consider updating)
+- Go Version: 1.24 (sourced from go.mod)
 - Command: `go test ./... -v`
 
 **No Additional Tooling:**

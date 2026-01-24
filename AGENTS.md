@@ -6,7 +6,7 @@ This document provides guidelines for AI coding agents working on the go-inspect
 
 **Project:** Go SDK for Inspector Cloud API (retail image recognition service)  
 **Package:** `inspector`  
-**Go Version:** 1.20  
+**Go Version:** 1.24  
 **Architecture:** Service-oriented client library with 5 domain services
 
 ## Essential Documentation
@@ -486,7 +486,7 @@ Use this template for `.opencode/plan/YYYY-MM-DD_task_name.md`:
 
 **GitHub Actions** runs on every push and PR:
 - Platforms: Ubuntu, macOS, Windows
-- Go version: 1.17.x (consider updating to match go.mod 1.20)
+- Go version: 1.24 (sourced from go.mod)
 - Command: `go test ./... -v`
 
 **Before pushing:**

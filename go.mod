@@ -1,6 +1,6 @@
 module github.com/germangorelkin/go-inspector
 
-go 1.20
+go 1.24
 
 require (
 	github.com/germangorelkin/http-client v0.4.0

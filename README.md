@@ -1,5 +1,5 @@
 # go inspector
-GO API for Inspector Cloud
+Go API for Inspector Cloud (tested on Go 1.24)
 
 ## Project Status
 Beta 0.1
