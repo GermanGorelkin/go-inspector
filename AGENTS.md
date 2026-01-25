@@ -11,7 +11,7 @@ This document provides guidelines for AI coding agents working on the go-inspect
 
 ## Essential Documentation
 
-**📋 Full Specification:** `.opencode/spec.md` - Complete project architecture, data models, API workflows, testing strategy, and known limitations. **Read this first** before making any changes.
+**📋 Full Specification:** `specs/spec.md` - Complete project architecture, data models, API workflows, testing strategy, and known limitations. **Read this first** before making any changes.
 
 ## Build, Test, and Lint Commands
 
@@ -519,7 +519,7 @@ go build ./...
 4. Add service to Client struct in `client.go`
 5. Initialize in `NewClient()` constructor: `c.New = &NewService{c: c}`
 6. Create `newservice_test.go` with test coverage
-7. Update `.opencode/spec.md` with new service documentation
+7. Update `specs/spec.md` with new service documentation
 
 ### Adding a New Report Type
 
@@ -528,7 +528,7 @@ go build ./...
 3. Add converter: `func (srv *ReportService) ToNewType(v interface{}) ([]ReportNewTypeJson, error)`
 4. Add test in `report_test.go`: `func TestReportService_ToNewType(t *testing.T)`
 5. Add example JSON in `testdata/new_type.json`
-6. Update `.opencode/spec.md` with new report type
+6. Update `specs/spec.md` with new report type
 
 ### Fixing a Bug
 
@@ -540,7 +540,7 @@ go build ./...
 
 ## Resources
 
-- **Full Spec:** `.opencode/spec.md` - Complete architecture and data models
+- **Full Spec:** `specs/spec.md` - Complete architecture and data models
 - **API Docs:** README.md - Usage examples
 - **HTTP Examples:** cmd/cli/examples.http - Raw API requests
 - **Test Data:** inspector/testdata/ - JSON fixtures
@@ -548,7 +548,7 @@ go build ./...
 ## Questions?
 
 When uncertain about:
-- Architecture decisions → Check `.opencode/spec.md`
+- Architecture decisions → Check `specs/spec.md`
 - Code style → Check existing files for patterns
 - Testing approach → Check existing `*_test.go` files
 - API behavior → Check `README.md` and `examples.http`

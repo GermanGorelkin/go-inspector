@@ -156,7 +156,7 @@ go build ./...
 
 ## Resources
 
-- `.opencode/spec.md` – complete specification and workflows
+- `specs/spec.md` – complete specification and workflows
 - `AGENTS.md` – contributor guidelines
 - `cmd/cli/examples.http` – raw API examples
 - `inspector/testdata/` – sample JSON fixtures

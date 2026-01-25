@@ -9,12 +9,12 @@ The current `README.md` still reflects an early beta version of the SDK. It uses
 
 ## Proposed Solution
 
-Rewrite the README around the canonical information from `.opencode/spec.md` and `AGENTS.md`. Provide a concise overview, installation guide, end-to-end quickstart with context-aware snippets, service/architecture summary, CLI usage, and development/testing workflow. Highlight gotchas (asynchronous reports, missing direct upload) and link to deeper resources.
+Rewrite the README around the canonical information from `specs/spec.md` and `AGENTS.md`. Provide a concise overview, installation guide, end-to-end quickstart with context-aware snippets, service/architecture summary, CLI usage, and development/testing workflow. Highlight gotchas (asynchronous reports, missing direct upload) and link to deeper resources.
 
 ## Detailed Steps
 
 1. [x] Step 1: Audit existing docs for canonical facts
-   - Files: `.opencode/spec.md`, `AGENTS.md`, `cmd/cli/main.go`
+   - Files: `specs/spec.md`, `AGENTS.md`, `cmd/cli/main.go`
    - Changes: none (information gathering)
 
 2. [x] Step 2: Restructure README header and overview
@@ -35,7 +35,7 @@ Rewrite the README around the canonical information from `.opencode/spec.md` and
 
 6. [x] Step 6: Add development/testing guidance and resource links
    - Files: `README.md`
-   - Changes: include build/test commands, references to `.opencode/spec.md`, AGENTS guide, license info, issue reporting instructions
+   - Changes: include build/test commands, references to `specs/spec.md`, AGENTS guide, license info, issue reporting instructions
 
 ## Testing Strategy
 

@@ -18,7 +18,7 @@ Introduce a `Timeout time.Duration` field in the configuration, defaulting to 30
    - Changes: Rename struct to `ClientConf`, add `Timeout time.Duration`, ensure default 30s timeout, and keep backward-compatible alias.
 
 2. [x] Step 2: Update documentation/spec references
-   - Files: `.opencode/spec.md`, `README.md` (if needed)
+   - Files: `specs/spec.md`, `README.md` (if needed)
    - Changes: Reflect new struct name, timeout option, and default description.
 
 3. [ ] Step 3: Add/adjust tests (if applicable)
