@@ -477,7 +477,7 @@ Use this template for `.opencode/plan/YYYY-MM-DD_task_name.md`:
 ## Dependencies
 
 **External:**
-- `github.com/germangorelkin/http-client` v0.4.0 - Custom HTTP wrapper
+- `github.com/germangorelkin/http-client` v0.7.0 - Custom HTTP wrapper
 - `github.com/mitchellh/mapstructure` v1.1.2 - Dynamic type conversion
 - `github.com/stretchr/testify` v1.7.0 - Testing assertions
 

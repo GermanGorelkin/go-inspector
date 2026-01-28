@@ -1,8 +1,8 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/germangorelkin/http-client v0.5.0 h1:ngqMO9G96LQUSt8l/C5AQ4e1iQMpVy+TNYLHdVpOch8=
-github.com/germangorelkin/http-client v0.5.0/go.mod h1:8Mrmf047oKo9WWT3fYuT2FN5MZ7WUx0cPoX6/iQjQ5Y=
+github.com/germangorelkin/http-client v0.7.0 h1:14dSTO2s1d9w64/Xxg/9wQ/FU/pMD7n2IK20EEfx3L8=
+github.com/germangorelkin/http-client v0.7.0/go.mod h1:ZhU0uAG3XbeBweXv6liTF2x+yLRHD5lJoSjLfvkS33w=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

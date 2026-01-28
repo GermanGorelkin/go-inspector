@@ -3,7 +3,7 @@ module github.com/germangorelkin/go-inspector
 go 1.24
 
 require (
-	github.com/germangorelkin/http-client v0.5.0
+	github.com/germangorelkin/http-client v0.7.0
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/stretchr/testify v1.7.0
 )
