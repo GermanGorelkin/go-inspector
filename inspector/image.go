@@ -3,7 +3,10 @@ package inspector
 import (
 	"context"
 	"fmt"
+	"io"
 	"time"
+
+	httpclient "github.com/germangorelkin/http-client"
 )
 
 // ImageService provides access to the Image Uploads functions in the IC API.
@@ -25,21 +28,24 @@ type UploadByUrlRequest struct {
 	URL string `json:"url"` // Image URL
 }
 
-// TODO
-// func (srv *ImageService) Upload(r io.Reader, filename string) (*Image, error) {
-// 	req, err := srv.client.newRequestFormFile("uploads/", r, filename)
-// 	if err != nil {
-// 		return nil, err
-// 	}
+// Upload uploads Image to IC API via multipart/form-data.
+func (srv *ImageService) Upload(ctx context.Context, r io.Reader, filename string) (Image, error) {
+	var img Image
+	form := httpclient.NewMultipartForm()
+	form.AddFile("file", filename, r)
 
-// 	var img Image
-// 	_, err = srv.client.do(req, &img)
-// 	if err != nil {
-// 		return nil, err
-// 	}
+	req, err := srv.client.httpClient.NewMultipartRequest("POST", "uploads/", form)
+	if err != nil {
+		return img, fmt.Errorf("failed to NewMultipartRequest(POST, uploads/, %v):%w", filename, err)
+	}
 
-// 	return &img, nil
-// }
+	_, err = srv.client.httpClient.Do(ctx, req, &img)
+	if err != nil {
+		return img, fmt.Errorf("failed to Do with Request(POST, uploads/, %v):%w", filename, err)
+	}
+
+	return img, nil
+}
 
 // UploadByURL uploads Image to IC API by photos url
 func (srv *ImageService) UploadByURL(ctx context.Context, url string) (Image, error) {

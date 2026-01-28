@@ -1,7 +1,7 @@
 # Task: Implement Direct File Uploads
 
 **Date:** 2026-01-24  
-**Status:** Planning
+**Status:** Completed
 
 ## Problem Statement
 
@@ -13,25 +13,25 @@ Introduce a multipart-powered `Upload(ctx context.Context, r io.Reader, filename
 
 ## Detailed Steps
 
-1. [ ] Step 1: Confirm or extend multipart support within `http-client`
+1. [x] Step 1: Confirm or extend multipart support within `http-client`
    - Files: `inspector/image.go`, dependency `github.com/germangorelkin/http-client`
-   - Changes: add helper utilities if the transport lacks multipart helpers.
+   - Changes: confirmed `MultipartForm` and `NewMultipartRequest` are available in v0.7.0 (buffers multipart body in memory).
 
-2. [ ] Step 2: Implement `ImageService.Upload`
+2. [x] Step 2: Implement `ImageService.Upload`
    - Files: `inspector/image.go`
-   - Changes: construct multipart bodies, stream from `io.Reader`, wrap errors with context.
+   - Changes: construct multipart bodies with field `file`, wrap errors with context, keep ctx-aware request handling.
 
-3. [ ] Step 3: Add regression tests
-   - Files: `inspector/image_test.go`, `inspector/testdata/`
-   - Changes: `httptest` server validating headers and multipart payloads.
+3. [x] Step 3: Add regression tests
+   - Files: `inspector/image_test.go`
+   - Changes: `httptest` server validates multipart payload and auth header.
 
-4. [ ] Step 4: Document usage and caveats
+4. [x] Step 4: Document usage and caveats
    - Files: `README.md`, `specs/spec.md`
-   - Changes: include examples, note size limits and expected content types.
+   - Changes: add direct upload example, note multipart buffering behavior.
 
 ## Testing Strategy
 
-- [ ] Unit tests: `go test ./inspector -run TestImageService_Upload`
+- [ ] Unit tests: `go test ./inspector -run TestImageService_Upload -v`
 - [ ] Integration tests: Upload sample files against staging
 - [ ] Manual testing: CLI sample performing direct upload
 

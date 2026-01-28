@@ -81,7 +81,7 @@ type Image struct {
 
 **Upload Methods:**
 - ✅ `UploadByURL(ctx, url)` - Upload from URL
-- ❌ `Upload(reader, filename)` - Direct file upload (TODO, not implemented)
+- ✅ `Upload(ctx, reader, filename)` - Direct file upload via multipart/form-data
 
 #### Recognition
 
@@ -436,9 +436,9 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
 
 ### Current Limitations
 
-1. **Direct File Upload Not Implemented**
-   - Only URL-based upload works: `UploadByURL()`
-   - File upload method is stubbed: `Upload(reader, filename)` - TODO
+1. **Direct File Upload Buffers In Memory**
+   - `Upload(ctx, reader, filename)` uses multipart/form-data
+   - The multipart helper buffers data in memory (avoid very large uploads)
 
 2. **No Automatic Report Polling**
    - Client must manually poll `GetReport()` until ready
@@ -462,7 +462,7 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
 ### Future Enhancements
 
 **Priority: High**
-- Implement direct file upload method
+- Document direct file upload method
 - Add polling helper with timeout/retry
 - Add pagination iterator helper
 

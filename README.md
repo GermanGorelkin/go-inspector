@@ -65,9 +65,24 @@ if err != nil {
 }
 ```
 
-> Direct file uploads (`Upload(r io.Reader, filename string)`) are not implemented yet.
+### 3. Upload an image from a reader
 
-### 3. Trigger recognition
+```go
+file, err := os.Open("/path/to/shelf.jpg")
+if err != nil {
+	log.Fatal(err)
+}
+defer file.Close()
+
+img, err = cli.Image.Upload(ctx, file, "shelf.jpg")
+if err != nil {
+	log.Fatalf("upload failed: %v", err)
+}
+```
+
+> Direct uploads use multipart/form-data and buffer the file in memory via the HTTP client helper.
+
+### 4. Trigger recognition
 
 ```go
 resp, err := cli.Recognize.Recognize(ctx, inspector.RecognizeRequest{
@@ -82,7 +97,7 @@ if err != nil {
 reportID := resp.Reports[inspector.ReportTypeFACING_COUNT]
 ```
 
-### 4. Poll for report readiness
+### 5. Poll for report readiness
 
 ```go
 for {
@@ -120,7 +135,7 @@ Webhook users can parse payloads with `inspector.ParseWebhookReports(body)`.
 
 | Service | Purpose | Key methods |
 | --- | --- | --- |
-| `ImageService` | Upload shelf photos | `UploadByURL`, `Upload` (TODO) |
+| `ImageService` | Upload shelf photos | `UploadByURL`, `Upload` |
 | `RecognizeService` | Trigger recognition jobs | `Recognize` |
 | `ReportService` | Retrieve/parse reports | `GetReport`, `ToFacingCount`, `ToPriceTags`, `ToRealogram`, `ParseWebhookReports` |
 | `SkuService` | Work with SKU catalogs | `GetSKU`, `ToSku` |
