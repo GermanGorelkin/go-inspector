@@ -100,21 +100,28 @@ reportID := resp.Reports[inspector.ReportTypeFACING_COUNT]
 ### 5. Poll for report readiness
 
 ```go
-for {
-	report, err := cli.Report.GetReport(ctx, reportID)
-	if err != nil {
-		log.Fatalf("get report failed: %v", err)
-	}
-	if report.Status == inspector.ReportStatusREADY {
-		facing, err := cli.Report.ToFacingCount(report.Json)
-		if err != nil {
-			log.Fatalf("parse facing: %v", err)
-		}
-		log.Printf("facing count: %+v", facing)
-		break
-	}
-	time.Sleep(2 * time.Second)
+// Use defaults (2s interval, 60s timeout)
+report, err := cli.Report.WaitForReport(ctx, reportID, nil)
+if err != nil {
+	log.Fatalf("wait for report failed: %v", err)
 }
+
+// Or customize with options
+report, err = cli.Report.WaitForReport(ctx, reportID, &inspector.ReportWaitOptions{
+	Interval: 3 * time.Second,
+	OnProgress: func(r *inspector.Report) {
+		log.Printf("status: %s", r.Status)
+	},
+})
+if err != nil {
+	log.Fatalf("wait for report failed: %v", err)
+}
+
+facing, err := cli.Report.ToFacingCount(report.Json)
+if err != nil {
+	log.Fatalf("parse facing: %v", err)
+}
+log.Printf("facing count: %+v", facing)
 ```
 
 Webhook users can parse payloads with `inspector.ParseWebhookReports(body)`.

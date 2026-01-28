@@ -22,11 +22,29 @@ const (
 	ReportStatusNOT_READY = "NOT_READY" // the report in the process of preparation. The client must repeat the request later;
 	ReportStatusREADY     = "READY"     // the report was successfully prepared. The client can use the “data” field, see below;
 	ReportStatusERROR     = "ERROR"     // error in the process of preparing the report. The error message is available in the 'error' field.
+
+	// Report polling defaults
+	ReportWaitDefaultInterval = 2 * time.Second
+	ReportWaitDefaultTimeout  = 60 * time.Second
 )
 
 // ReportService provides access to the Reports functions in the IC API.
 type ReportService struct {
 	client *Client
+}
+
+// ReportWaitProgressFunc receives the latest report during polling.
+type ReportWaitProgressFunc func(report *Report)
+
+// ReportWaitBackoffFunc returns the next interval based on attempts.
+type ReportWaitBackoffFunc func(attempt int, prevInterval time.Duration) time.Duration
+
+// ReportWaitOptions configures polling behavior for WaitForReport.
+type ReportWaitOptions struct {
+	Interval   time.Duration          // base polling interval (default: ReportWaitDefaultInterval)
+	Timeout    time.Duration          // overall timeout (default: ReportWaitDefaultTimeout)
+	Backoff    ReportWaitBackoffFunc  // optional interval backoff
+	OnProgress ReportWaitProgressFunc // optional progress callback
 }
 
 // Report represents a payload of report
@@ -146,4 +164,69 @@ func (srv *ReportService) ParseWebhookReports(b []byte) (*WebhookReports, error)
 		return nil, fmt.Errorf("failed to Unmarshal %q:%w", b, err)
 	}
 	return &reports, nil
+}
+
+// WaitForReport polls until the report is READY or ERROR.
+// Context ctx is used for cancellation and timeout.
+func (srv *ReportService) WaitForReport(ctx context.Context, id int, opts *ReportWaitOptions) (*Report, error) {
+	options := applyReportWaitDefaults(opts)
+	ctx, cancel := withReportWaitTimeout(ctx, options.Timeout)
+	if cancel != nil {
+		defer cancel()
+	}
+
+	interval := options.Interval
+	for attempt := 1; ; attempt++ {
+		report, err := srv.GetReport(ctx, id)
+		if err != nil {
+			return nil, fmt.Errorf("failed to GetReport(%d):%w", id, err)
+		}
+		if options.OnProgress != nil {
+			options.OnProgress(report)
+		}
+		switch report.Status {
+		case ReportStatusREADY:
+			return report, nil
+		case ReportStatusERROR:
+			return nil, fmt.Errorf("failed to WaitForReport(%d) with status ERROR", id)
+		}
+
+		timer := time.NewTimer(interval)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return nil, fmt.Errorf("failed to WaitForReport(%d):%w", id, ctx.Err())
+		case <-timer.C:
+			timer.Stop()
+		}
+
+		if options.Backoff != nil {
+			interval = options.Backoff(attempt, interval)
+		}
+	}
+}
+
+func applyReportWaitDefaults(opts *ReportWaitOptions) ReportWaitOptions {
+	if opts == nil {
+		return ReportWaitOptions{
+			Interval: ReportWaitDefaultInterval,
+			Timeout:  ReportWaitDefaultTimeout,
+		}
+	}
+
+	options := *opts
+	if options.Interval == 0 {
+		options.Interval = ReportWaitDefaultInterval
+	}
+	if options.Timeout == 0 {
+		options.Timeout = ReportWaitDefaultTimeout
+	}
+	return options
+}
+
+func withReportWaitTimeout(ctx context.Context, timeout time.Duration) (context.Context, context.CancelFunc) {
+	if timeout <= 0 {
+		return ctx, nil
+	}
+	return context.WithTimeout(ctx, timeout)
 }

@@ -351,3 +351,142 @@ func TestReportService_ParseWebhookReports_Error(t *testing.T) {
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "failed to Unmarshal")
 }
+
+func TestReportService_WaitForReport(t *testing.T) {
+	t.Run("returns ready", func(t *testing.T) {
+		calls := 0
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			calls++
+			status := "NOT_READY"
+			if calls > 1 {
+				status = "READY"
+			}
+			_, err := fmt.Fprintf(w, `{"id":1,"status":"%s"}`, status)
+			assert.NoError(t, err)
+		}))
+		defer ts.Close()
+
+		client, err := NewClient(ClintConf{
+			Instance: ts.URL,
+			APIKey:   "",
+		})
+		assert.NoError(t, err)
+
+		var progress []string
+		report, err := client.Report.WaitForReport(context.Background(), 1, &ReportWaitOptions{
+			Interval: 1 * time.Millisecond,
+			Timeout:  100 * time.Millisecond,
+			OnProgress: func(report *Report) {
+				progress = append(progress, report.Status)
+			},
+		})
+		assert.NoError(t, err)
+		assert.Equal(t, ReportStatusREADY, report.Status)
+		assert.GreaterOrEqual(t, len(progress), 2)
+	})
+
+	t.Run("returns error status", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			_, err := fmt.Fprintln(w, `{"id":1,"status":"ERROR"}`)
+			assert.NoError(t, err)
+		}))
+		defer ts.Close()
+
+		client, err := NewClient(ClintConf{
+			Instance: ts.URL,
+			APIKey:   "",
+		})
+		assert.NoError(t, err)
+
+		_, err = client.Report.WaitForReport(context.Background(), 1, &ReportWaitOptions{
+			Interval: 1 * time.Millisecond,
+			Timeout:  50 * time.Millisecond,
+		})
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "status ERROR")
+	})
+
+	t.Run("times out", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			_, err := fmt.Fprintln(w, `{"id":1,"status":"NOT_READY"}`)
+			assert.NoError(t, err)
+		}))
+		defer ts.Close()
+
+		client, err := NewClient(ClintConf{
+			Instance: ts.URL,
+			APIKey:   "",
+		})
+		assert.NoError(t, err)
+
+		_, err = client.Report.WaitForReport(context.Background(), 1, &ReportWaitOptions{
+			Interval: 5 * time.Millisecond,
+			Timeout:  10 * time.Millisecond,
+		})
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "context deadline exceeded")
+	})
+
+	t.Run("canceled context", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			_, err := fmt.Fprintln(w, `{"id":1,"status":"NOT_READY"}`)
+			assert.NoError(t, err)
+		}))
+		defer ts.Close()
+
+		client, err := NewClient(ClintConf{
+			Instance: ts.URL,
+			APIKey:   "",
+		})
+		assert.NoError(t, err)
+
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+
+		_, err = client.Report.WaitForReport(ctx, 1, &ReportWaitOptions{
+			Interval: 5 * time.Millisecond,
+			Timeout:  50 * time.Millisecond,
+		})
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "context canceled")
+	})
+
+	t.Run("backoff increases interval", func(t *testing.T) {
+		calls := 0
+		intervals := []time.Duration{}
+
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			calls++
+			status := "NOT_READY"
+			if calls > 3 {
+				status = "READY"
+			}
+			_, err := fmt.Fprintf(w, `{"id":1,"status":"%s"}`, status)
+			assert.NoError(t, err)
+		}))
+		defer ts.Close()
+
+		client, err := NewClient(ClintConf{
+			Instance: ts.URL,
+			APIKey:   "",
+		})
+		assert.NoError(t, err)
+
+		_, err = client.Report.WaitForReport(context.Background(), 1, &ReportWaitOptions{
+			Interval: 1 * time.Millisecond,
+			Timeout:  100 * time.Millisecond,
+			Backoff: func(attempt int, prev time.Duration) time.Duration {
+				next := prev * 2
+				intervals = append(intervals, next)
+				return next
+			},
+		})
+
+		assert.NoError(t, err)
+		assert.GreaterOrEqual(t, len(intervals), 2)
+		// Verify intervals increased
+		for i := 1; i < len(intervals); i++ {
+			assert.Greater(t, intervals[i], intervals[i-1])
+		}
+	})
+}

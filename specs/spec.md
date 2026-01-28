@@ -273,6 +273,23 @@ type Visit struct {
 - Reports must be polled until `Status == READY`
 - Alternative: Provide webhook URL for push notification
 
+#### Polling Helper
+
+Use `WaitForReport` to poll report status with defaults (2s interval, 60s timeout) and optional callbacks.
+
+```go
+report, err := client.Report.WaitForReport(ctx, reportID, &inspector.ReportWaitOptions{
+    Interval: 2 * time.Second,
+    Timeout:  60 * time.Second,
+    OnProgress: func(report *inspector.Report) {
+        log.Printf("report status: %s", report.Status)
+    },
+})
+if err != nil {
+    return err
+}
+```
+
 ### Webhook Integration
 
 When a webhook URL is provided:
@@ -441,9 +458,8 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
    - The multipart helper buffers data in memory (avoid very large uploads)
 
 2. **No Automatic Report Polling**
-   - Client must manually poll `GetReport()` until ready
-   - No built-in retry/backoff mechanism
-   - Consider adding: `WaitForReport(ctx, reportID, pollInterval)` helper
+   - ✅ `WaitForReport(ctx, reportID, opts)` helper available
+   - Supports timeout, interval, optional backoff, and progress callbacks
 
 3. **No Pagination Helpers**
    - `GetSKU()` returns single page
