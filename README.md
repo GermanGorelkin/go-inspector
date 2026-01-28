@@ -132,9 +132,30 @@ Webhook users can parse payloads with `inspector.ParseWebhookReports(body)`.
 - **SKU pagination:**
 
   ```go
+  // Manual pagination
   page, _ := cli.Sku.GetSKU(ctx, offset, limit)
   skus, _ := cli.Sku.ToSku(page.Results)
+  
+  // Automatic pagination with iterator
+  iterator := cli.Sku.IterateSKU(ctx, 100) // 100 items per page
+  for {
+      pageSkus, err := iterator.Next()
+      if err != nil {
+          // handle error
+      }
+      if pageSkus == nil {
+          break // no more pages
+      }
+      // process pageSkus...
+  }
+  
+  // Or fetch all SKUs at once (uses automatic pagination)
+  allSkus, err := cli.Sku.GetAllSKU(ctx, 100)
   ```
+
+  Pagination responses follow the standard `count/next/previous/results` format documented here:
+  `https://help.inspector-cloud.com/docs/api/backend/methods/pagination`.
+  SKU endpoint reference: `https://help.inspector-cloud.com/docs/api/backend/methods/v1.5/catalog/sku`.
 
 - **Report converters:** `ToPriceTags`, `ToFacingCount`, `ToRealogram`, `ToSku`
 
@@ -145,7 +166,7 @@ Webhook users can parse payloads with `inspector.ParseWebhookReports(body)`.
 | `ImageService` | Upload shelf photos | `UploadByURL`, `Upload` |
 | `RecognizeService` | Trigger recognition jobs | `Recognize` |
 | `ReportService` | Retrieve/parse reports | `GetReport`, `ToFacingCount`, `ToPriceTags`, `ToRealogram`, `ParseWebhookReports` |
-| `SkuService` | Work with SKU catalogs | `GetSKU`, `ToSku` |
+| `SkuService` | Work with SKU catalogs | `GetSKU`, `ToSku`, `IterateSKU`, `GetAllSKU` |
 | `VisitService` | Create visits for merchandisers | `AddVisit` |
 
 All services share the same authenticated HTTP client created by `NewClient`. Every API call accepts `context.Context` as the first parameter for cancellation and deadlines.
@@ -182,6 +203,7 @@ go build ./...
 - `AGENTS.md` – contributor guidelines
 - `cmd/cli/examples.http` – raw API examples
 - `inspector/testdata/` – sample JSON fixtures
+- SKU API reference: `https://help.inspector-cloud.com/docs/api/backend/methods/v1.5/catalog/sku`
 
 ## Support
 

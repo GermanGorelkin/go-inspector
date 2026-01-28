@@ -212,6 +212,8 @@ type Sku struct {
 }
 ```
 
+Reference: `https://help.inspector-cloud.com/docs/api/backend/methods/v1.5/catalog/sku`
+
 #### Visit
 ```go
 type Visit struct {
@@ -297,6 +299,18 @@ When a webhook URL is provided:
 2. Inspector Cloud POSTs to webhook URL when ready
 3. Payload format: `WebhookReports` struct
 4. Parse with: `ParseWebhookReports(requestBody)`
+
+## Pagination
+
+Most list endpoints (including `/sku`) return standard pagination fields:
+
+- `count`: total number of objects
+- `next`: URL for the next page (nullable)
+- `previous`: URL for the previous page (nullable)
+- `results`: list of objects
+
+Reference: `https://help.inspector-cloud.com/docs/api/backend/methods/pagination`
+SKU endpoint: `https://help.inspector-cloud.com/docs/api/backend/methods/v1.5/catalog/sku`
 
 ## Testing Strategy
 
@@ -461,10 +475,11 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
    - ✅ `WaitForReport(ctx, reportID, opts)` helper available
    - Supports timeout, interval, optional backoff, and progress callbacks
 
-3. **No Pagination Helpers**
+3. **Pagination Helpers**
    - `GetSKU()` returns single page
-   - No automatic page iteration
-   - Client must handle `Next`/`Previous` URLs manually
+   - `IterateSKU()` provides automatic pagination with iterator pattern
+   - `GetAllSKU()` fetches all pages automatically
+   - Includes safeguards against infinite loops
 
 4. **Limited Error Context**
    - HTTP errors wrapped but not typed
@@ -480,7 +495,6 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
 **Priority: High**
 - Document direct file upload method
 - Add polling helper with timeout/retry
-- Add pagination iterator helper
 
 **Priority: Medium**
 - Add request/response logging hooks
