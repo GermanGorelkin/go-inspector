@@ -1,7 +1,7 @@
 # Task: Expand CI/CD Coverage
 
 **Date:** 2026-01-24  
-**Status:** Planning
+**Status:** Completed
 
 ## Problem Statement
 
@@ -13,19 +13,19 @@ Enhance `.github/workflows/test.yml` to include coverage publishing, lint job, `
 
 ## Detailed Steps
 
-1. [ ] Step 1: Add coverage collection and upload
+1. [x] Step 1: Add coverage collection and upload
    - Files: `.github/workflows/test.yml`
    - Changes: run `go test ./... -coverprofile` and upload artifact or send to Codecov.
 
-2. [ ] Step 2: Integrate lint job (depends on golangci-lint plan)
+2. [x] Step 2: Integrate lint job (depends on golangci-lint plan)
    - Files: `.github/workflows/test.yml`
    - Changes: add separate job or matrix entry.
 
-3. [ ] Step 3: Add `go mod tidy` consistency check
+3. [x] Step 3: Add `go mod tidy` consistency check
    - Files: `.github/workflows/test.yml`
    - Changes: run tidy and fail if diff detected.
 
-4. [ ] Step 4: Run `govulncheck`
+4. [x] Step 4: Run `govulncheck`
    - Files: `.github/workflows/test.yml`
    - Changes: add security scanning step with caching.
 
