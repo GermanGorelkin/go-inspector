@@ -133,8 +133,8 @@ func TestSkuService_IterateSKU(t *testing.T) {
 		var serverURL string
 
 		handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			assert.Equal(t, "GET", r.Method)
-			assert.Equal(t, "/sku/", r.URL.Path)
+			assert.Equal(t, methodGET, r.Method)
+			assert.Equal(t, "/"+endpointSKU, r.URL.Path)
 
 			query := r.URL.Query()
 			limit := query.Get("limit")
@@ -166,7 +166,7 @@ func TestSkuService_IterateSKU(t *testing.T) {
 				"results":  json.RawMessage(response),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		})
 
@@ -209,8 +209,8 @@ func TestSkuService_IterateSKU(t *testing.T) {
 		var serverURL string
 
 		handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			assert.Equal(t, "GET", r.Method)
-			assert.Equal(t, "/sku/", r.URL.Path)
+			assert.Equal(t, methodGET, r.Method)
+			assert.Equal(t, "/"+endpointSKU, r.URL.Path)
 
 			callCount++
 			offset := r.URL.Query().Get("offset")
@@ -238,7 +238,7 @@ func TestSkuService_IterateSKU(t *testing.T) {
 				"results":  json.RawMessage(response),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		})
 
@@ -284,7 +284,7 @@ func TestSkuService_IterateSKU(t *testing.T) {
 				"results":  json.RawMessage(page1Results),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		}))
 		defer ts.Close()
@@ -316,7 +316,7 @@ func TestSkuService_IterateSKU(t *testing.T) {
 				"results":  json.RawMessage(`[]`),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		}))
 		defer ts.Close()
@@ -394,7 +394,7 @@ func TestSkuService_GetAllSKU(t *testing.T) {
 				"results":  json.RawMessage(response),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		})
 
@@ -428,7 +428,7 @@ func TestSkuService_GetAllSKU(t *testing.T) {
 				"results":  json.RawMessage(`[]`),
 			}
 
-			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set(headerContentType, contentTypeJSON)
 			json.NewEncoder(w).Encode(pagResponse)
 		}))
 		defer ts.Close()

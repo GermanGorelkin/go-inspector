@@ -12,7 +12,7 @@ func TestNewClient_DefaultsAndServices(t *testing.T) {
 	c, err := NewClient(ClientConf{Instance: "https://example.com", APIKey: "abc"})
 	assert.NoError(t, err)
 
-	assert.Equal(t, 30*time.Second, c.httpTimeout)
+	assert.Equal(t, DefaultHTTPTimeout, c.httpTimeout)
 	assert.NotNil(t, c.Image)
 	assert.NotNil(t, c.Recognize)
 	assert.NotNil(t, c.Report)

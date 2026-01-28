@@ -34,14 +34,14 @@ func (srv *ImageService) Upload(ctx context.Context, r io.Reader, filename strin
 	form := httpclient.NewMultipartForm()
 	form.AddFile("file", filename, r)
 
-	req, err := srv.client.httpClient.NewMultipartRequest("POST", "uploads/", form)
+	req, err := srv.client.httpClient.NewMultipartRequest(methodPOST, endpointUploads, form)
 	if err != nil {
-		return img, fmt.Errorf("failed to NewMultipartRequest(POST, uploads/, %v):%w", filename, err)
+		return img, fmt.Errorf("failed to NewMultipartRequest(%s, %s, %v):%w", methodPOST, endpointUploads, filename, err)
 	}
 
 	_, err = srv.client.httpClient.Do(ctx, req, &img)
 	if err != nil {
-		return img, fmt.Errorf("failed to Do with Request(POST, uploads/, %v):%w", filename, err)
+		return img, fmt.Errorf("failed to Do with Request(%s, %s, %v):%w", methodPOST, endpointUploads, filename, err)
 	}
 
 	return img, nil
@@ -52,14 +52,14 @@ func (srv *ImageService) UploadByURL(ctx context.Context, url string) (Image, er
 	var img Image
 	body := UploadByUrlRequest{URL: url}
 
-	req, err := srv.client.httpClient.NewRequest("POST", "uploads/upload_by_url/", body)
+	req, err := srv.client.httpClient.NewRequest(methodPOST, endpointUploadsByURL, body)
 	if err != nil {
-		return img, fmt.Errorf("failed to NewRequest(POST, uploads/upload_by_url/, %v):%w", body, err)
+		return img, fmt.Errorf("failed to NewRequest(%s, %s, %v):%w", methodPOST, endpointUploadsByURL, body, err)
 	}
 
 	_, err = srv.client.httpClient.Do(ctx, req, &img)
 	if err != nil {
-		return img, fmt.Errorf("failed to Do with Request(POST, uploads/upload_by_url/, %v):%w", body, err)
+		return img, fmt.Errorf("failed to Do with Request(%s, %s, %v):%w", methodPOST, endpointUploadsByURL, body, err)
 	}
 
 	return img, nil

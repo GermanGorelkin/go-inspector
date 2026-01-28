@@ -29,8 +29,8 @@ func TestImageService_UploadByURL(t *testing.T) {
 		want := UploadByUrlRequest{URL: imgUrl}
 		assert.Equal(t, want, got)
 
-		_, err = fmt.Fprintln(w, `{  
-				"id": 156673,  
+		_, err = fmt.Fprintln(w, `{
+				"id": 156673,
                 "url": "https://test.inspector-cloud.com/media/12345678-1234-5678-1234567812345678.jpg",
 				"width": 720,
 				"height": 1280,
@@ -66,18 +66,18 @@ func TestImageService_Upload(t *testing.T) {
 	)
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "POST", r.Method)
-		assert.Equal(t, "/uploads/", r.URL.Path)
-		assert.Equal(t, "Token test-key", r.Header.Get("Authorization"))
+		assert.Equal(t, methodPOST, r.Method)
+		assert.Equal(t, "/"+endpointUploads, r.URL.Path)
+		assert.Equal(t, authSchemeToken+" test-key", r.Header.Get(headerAuthorization))
 
-		mediaType, params, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+		mediaType, params, err := mime.ParseMediaType(r.Header.Get(headerContentType))
 		assert.NoError(t, err)
-		assert.Equal(t, "multipart/form-data", mediaType)
+		assert.Equal(t, contentTypeMultipartFormData, mediaType)
 
 		reader := multipart.NewReader(r.Body, params["boundary"])
 		part, err := reader.NextPart()
 		assert.NoError(t, err)
-		assert.Equal(t, "file", part.FormName())
+		assert.Equal(t, formFieldFile, part.FormName())
 		assert.Equal(t, filename, part.FileName())
 
 		data, err := io.ReadAll(part)
@@ -87,8 +87,8 @@ func TestImageService_Upload(t *testing.T) {
 		_, err = reader.NextPart()
 		assert.Equal(t, io.EOF, err)
 
-		_, err = fmt.Fprintln(w, `{  
-				"id": 156673,  
+		_, err = fmt.Fprintln(w, `{
+				"id": 156673,
 				"url": "https://test.inspector-cloud.com/media/12345678-1234-5678-1234567812345678.jpg",
 				"width": 720,
 				"height": 1280,

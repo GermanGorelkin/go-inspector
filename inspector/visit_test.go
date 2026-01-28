@@ -13,8 +13,8 @@ import (
 
 func TestVisitService_AddVisit(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "POST", r.Method)
-		assert.Equal(t, "/visits/", r.URL.Path)
+		assert.Equal(t, methodPOST, r.Method)
+		assert.Equal(t, "/"+endpointVisits, r.URL.Path)
 		body, err := ioutil.ReadAll(r.Body)
 		assert.NoError(t, err)
 		assert.JSONEq(t, `{}`, string(body))

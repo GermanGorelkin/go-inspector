@@ -23,15 +23,15 @@ type VisitService struct {
 
 // AddVisit adds new IC visit with server-side defaults
 func (srv *VisitService) AddVisit(ctx context.Context) (*Visit, error) {
-	req, err := srv.client.httpClient.NewRequest("POST", "visits/", struct{}{})
+	req, err := srv.client.httpClient.NewRequest(methodPOST, endpointVisits, struct{}{})
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(POST, visits/):%w", err)
+		return nil, fmt.Errorf("failed to NewRequest(%s, %s):%w", methodPOST, endpointVisits, err)
 	}
 
 	resp := &Visit{}
 	_, err = srv.client.httpClient.Do(ctx, req, resp)
 	if err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(POST, visits/):%w", err)
+		return nil, fmt.Errorf("failed to Do with Request(%s, %s):%w", methodPOST, endpointVisits, err)
 	}
 
 	return resp, nil

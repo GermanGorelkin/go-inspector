@@ -32,10 +32,10 @@ type SkuService struct {
 // GetSKU requests list of SKU.
 // Return Pagination for the given offset and limit
 func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Pagination, error) {
-	path := "sku/"
-	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
+	path := endpointSKU
+	req, err := srv.client.httpClient.NewRequest(methodGET, path, nil)
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(GET, %s):%w", path, err)
+		return nil, fmt.Errorf("failed to NewRequest(%s, %s):%w", methodGET, path, err)
 	}
 
 	q := fmt.Sprintf("limit=%d&offset=%d", limit, offset)
@@ -44,7 +44,7 @@ func (srv *SkuService) GetSKU(ctx context.Context, offset, limit int) (*Paginati
 	var pag Pagination
 	_, err = srv.client.httpClient.Do(ctx, req, &pag)
 	if err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(GET, %s):%w", req.URL.RawQuery, err)
+		return nil, fmt.Errorf("failed to Do with Request(%s, %s):%w", methodGET, req.URL.RawQuery, err)
 	}
 
 	return &pag, nil
@@ -76,7 +76,7 @@ type SKUIterator struct {
 // against infinite loops.
 func (srv *SkuService) IterateSKU(ctx context.Context, pageSize int) *SKUIterator {
 	if pageSize <= 0 {
-		pageSize = 100
+		pageSize = DefaultPageSize
 	}
 	return &SKUIterator{
 		client:    srv,
@@ -85,7 +85,7 @@ func (srv *SkuService) IterateSKU(ctx context.Context, pageSize int) *SKUIterato
 		offset:    0,
 		hasMore:   true,
 		seenPages: make(map[int]bool),
-		maxPages:  1000, // Safety limit to prevent infinite loops
+		maxPages:  MaxPaginationPages, // Safety limit to prevent infinite loops
 	}
 }
 

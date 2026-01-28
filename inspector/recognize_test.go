@@ -29,8 +29,8 @@ func TestRecognizeService_Recognize(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, recReq, got)
 
-		_, err = fmt.Fprintln(w, `{  
-				"id": 11,  
+		_, err = fmt.Fprintln(w, `{
+				"id": 11,
                 "images": [1,2,3],
 				"scene": "4d8b66992cd841f6922723afe9bd8cf8",
 				"reports": {
@@ -73,8 +73,8 @@ func TestRecognizeService_RecognitionError(t *testing.T) {
 	}
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "POST", r.Method)
-		assert.Equal(t, "/recognition_error/", r.URL.Path)
+		assert.Equal(t, methodPOST, r.Method)
+		assert.Equal(t, "/"+endpointRecognitionError, r.URL.Path)
 		b, err := ioutil.ReadAll(r.Body)
 		assert.NoError(t, err)
 		var got RecognitionErrorRequest

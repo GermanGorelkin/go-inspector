@@ -24,8 +24,8 @@ const (
 	ReportStatusERROR     = "ERROR"     // error in the process of preparing the report. The error message is available in the 'error' field.
 
 	// Report polling defaults
-	ReportWaitDefaultInterval = 2 * time.Second
-	ReportWaitDefaultTimeout  = 60 * time.Second
+	ReportWaitDefaultInterval = DefaultPollingInterval
+	ReportWaitDefaultTimeout  = DefaultPollingTimeout
 )
 
 // ReportService provides access to the Reports functions in the IC API.
@@ -116,15 +116,15 @@ type ReportRealogramShelfAnnotations struct {
 
 // GetReport requests data of report for the given reportID
 func (srv *ReportService) GetReport(ctx context.Context, id int) (*Report, error) {
-	path := fmt.Sprintf("reports/%d/", id)
-	req, err := srv.client.httpClient.NewRequest("GET", path, nil)
+	path := fmt.Sprintf(endpointReports, id)
+	req, err := srv.client.httpClient.NewRequest(methodGET, path, nil)
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(GET, %s):%w", path, err)
+		return nil, fmt.Errorf("failed to NewRequest(%s, %s):%w", methodGET, path, err)
 	}
 
 	var report Report
 	if _, err = srv.client.httpClient.Do(ctx, req, &report); err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(GET, %s):%w", path, err)
+		return nil, fmt.Errorf("failed to Do with Request(%s, %s):%w", methodGET, path, err)
 	}
 
 	return &report, nil

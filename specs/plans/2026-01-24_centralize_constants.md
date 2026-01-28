@@ -1,7 +1,7 @@
 # Task: Centralize Shared Constants
 
 **Date:** 2026-01-24  
-**Status:** Planning
+**Status:** In Progress
 
 ## Problem Statement
 
@@ -13,19 +13,19 @@ Create `inspector/constants.go` to house shared defaults (endpoints, timeouts, r
 
 ## Detailed Steps
 
-1. [ ] Step 1: Catalog duplicated literals
+1. [x] Step 1: Catalog duplicated literals
    - Files: service files under `inspector/`
    - Changes: list endpoints, default intervals, header names.
 
-2. [ ] Step 2: Add `constants.go` with exported values
+2. [x] Step 2: Add `constants.go` with exported values
    - Files: `inspector/constants.go`
    - Changes: document each constant and provide sensible defaults.
 
-3. [ ] Step 3: Refactor services to use constants
+3. [x] Step 3: Refactor services to use constants
    - Files: affected service files
    - Changes: replace inline strings/numbers, update tests if needed.
 
-4. [ ] Step 4: Update tests referencing literals
+4. [x] Step 4: Update tests referencing literals
    - Files: relevant `*_test.go`
    - Changes: import constants to keep assertions in sync.
 

@@ -34,15 +34,15 @@ type RecognizeResponse struct {
 
 // Recognize starts the asynchronous process of recognizing a group of images and returns IDs of reports
 func (srv *RecognizeService) Recognize(ctx context.Context, rr RecognizeRequest) (*RecognizeResponse, error) {
-	req, err := srv.client.httpClient.NewRequest("POST", "recognize/", rr)
+	req, err := srv.client.httpClient.NewRequest(methodPOST, endpointRecognize, rr)
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(POST, recognize/, %v):%w", rr, err)
+		return nil, fmt.Errorf("failed to NewRequest(%s, %s, %v):%w", methodPOST, endpointRecognize, rr, err)
 	}
 
 	var rec RecognizeResponse
 	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(POST, recognize/, %v):%w", rr, err)
+		return nil, fmt.Errorf("failed to Do with Request(%s, %s, %v):%w", methodPOST, endpointRecognize, rr, err)
 	}
 
 	return &rec, nil
@@ -63,15 +63,15 @@ type RecognitionErrorResponse struct {
 
 // RecognitionError creates a recognition error message
 func (srv *RecognizeService) RecognitionError(ctx context.Context, rr *RecognitionErrorRequest) (*RecognitionErrorResponse, error) {
-	req, err := srv.client.httpClient.NewRequest("POST", "recognition_error/", rr)
+	req, err := srv.client.httpClient.NewRequest(methodPOST, endpointRecognitionError, rr)
 	if err != nil {
-		return nil, fmt.Errorf("failed to NewRequest(POST, recognition_error/, %v):%w", rr, err)
+		return nil, fmt.Errorf("failed to NewRequest(%s, %s, %v):%w", methodPOST, endpointRecognitionError, rr, err)
 	}
 
 	var rec RecognitionErrorResponse
 	_, err = srv.client.httpClient.Do(ctx, req, &rec)
 	if err != nil {
-		return nil, fmt.Errorf("failed to Do with Request(POST, recognition_error/, %v):%w", rr, err)
+		return nil, fmt.Errorf("failed to Do with Request(%s, %s, %v):%w", methodPOST, endpointRecognitionError, rr, err)
 	}
 
 	return &rec, nil
