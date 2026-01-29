@@ -195,7 +195,7 @@ make fmt        # Format code
 make lint       # Run go vet and gofmt
 make test       # Run tests
 make coverage   # Run tests with coverage report
-make build      # Build library and CLI
+make build      # Build library and examples
 make clean      # Clean up artifacts
 ```
 
@@ -203,11 +203,24 @@ make clean      # Clean up artifacts
 - Use `go test ./inspector -run TestImageService_UploadByURL -v` for targeted checks
 - Keep imports organized (std lib → blank line → third-party)
 
+## Examples
+
+See the `examples/` directory for standalone CLI examples demonstrating each library feature:
+
+- **Image Upload:** `upload-url`, `upload-file`
+- **Recognition:** `recognize`, `recognition-error`
+- **Reports:** `get-report`, `wait-report`
+- **SKU Catalog:** `sku-list`, `sku-all`
+- **Visits:** `visit-create`
+- **Complete Workflow:** `full-workflow`
+
+Each example is a self-contained binary. See `examples/README.md` for detailed usage instructions.
+
 ## Resources
 
 - `specs/spec.md` – complete specification and workflows
 - `AGENTS.md` – contributor guidelines
-- `cmd/cli/examples.http` – raw API examples
+- `examples/` – CLI examples demonstrating library features
 - `inspector/testdata/` – sample JSON fixtures
 - SKU API reference: `https://help.inspector-cloud.com/docs/api/backend/methods/v1.5/catalog/sku`
 

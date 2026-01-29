@@ -1,8 +1,8 @@
 # Makefile for go-inspector
 
 # Variables
-BINARY_NAME=cli
 COVERAGE_FILE=coverage.out
+EXAMPLES_DIR=examples
 
 # Default target
 .PHONY: all
@@ -30,18 +30,18 @@ coverage:
 	go test ./... -coverprofile=$(COVERAGE_FILE)
 	go tool cover -func=$(COVERAGE_FILE)
 
-# Build library and CLI
+# Build library and examples
 .PHONY: build
 build:
 	go build ./...
-	go build -o $(BINARY_NAME) cmd/cli/main.go
+	go build ./$(EXAMPLES_DIR)/...
 
 # Clean up artifacts
 .PHONY: clean
 clean:
 	go clean
-	rm -f $(BINARY_NAME)
 	rm -f $(COVERAGE_FILE)
+	find $(EXAMPLES_DIR) -type f -name 'main' -delete
 
 # Install dependencies
 .PHONY: deps

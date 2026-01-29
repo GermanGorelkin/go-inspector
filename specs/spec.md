@@ -449,7 +449,7 @@ go test ./inspector -run TestImageService_UploadByURL -v
 
 ## Environment Configuration
 
-### Required Environment Variables (for CLI examples)
+### Required Environment Variables (for examples)
 
 ```bash
 export API_KEY="your_api_key_here"
@@ -515,6 +515,5 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
 ## Support and Resources
 
 - **Documentation:** README.md
-- **Examples:** cmd/cli/main.go (mostly commented out)
-- **HTTP Examples:** cmd/cli/examples.http
+- **Examples:** examples/ directory with standalone CLI examples
 - **License:** MIT License
