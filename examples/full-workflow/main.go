@@ -20,6 +20,7 @@ func main() {
 	file := flag.String("file", "", "Path to local image file")
 	types := flag.String("types", "FACING_COUNT", "Comma-separated report types")
 	wait := flag.Bool("wait", true, "Wait for reports to complete")
+	retailChain := flag.String("retail-chain", "", "Retail chain identifier (optional)")
 	flag.Parse()
 
 	// Validate required flags - need either URL or file
@@ -95,6 +96,7 @@ func main() {
 		Images:      []int{image.ID},
 		ReportTypes: reportTypes,
 		Visit:       visit.ID,
+		RetailChain: *retailChain,
 	}
 	recResp, err := client.Recognize.Recognize(ctx, recReq)
 	if err != nil {

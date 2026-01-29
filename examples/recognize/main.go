@@ -20,6 +20,7 @@ func main() {
 	types := flag.String("types", "FACING_COUNT", "Comma-separated report types")
 	webhook := flag.String("webhook", "", "Webhook URL for async notifications (optional)")
 	visit := flag.Int("visit", 0, "Visit ID to associate with recognition (optional)")
+	retailChain := flag.String("retail-chain", "", "Retail chain identifier (optional)")
 	flag.Parse()
 
 	// Validate required flags
@@ -69,6 +70,7 @@ func main() {
 		Images:      imageIDs,
 		ReportTypes: reportTypes,
 		Webhook:     *webhook,
+		RetailChain: *retailChain,
 	}
 	if *visit > 0 {
 		req.Visit = *visit

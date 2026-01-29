@@ -95,6 +95,7 @@ type RecognizeRequest struct {
     Datetime    *time.Time // Recognition timestamp (optional)
     Webhook     string     // Webhook URL for async notification
     CountryCode string     // Country code for recognition
+    RetailChain string     // Retail chain identifier for the store
 }
 ```
 

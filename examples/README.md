@@ -91,6 +91,7 @@ go run ./examples/recognize/main.go -images "12345,12346" -types "FACING_COUNT,P
 - `-types` (optional, default: "FACING_COUNT") - Comma-separated report types
 - `-webhook` (optional) - Webhook URL for async notifications
 - `-visit` (optional) - Visit ID to associate with recognition
+- `-retail-chain` (optional) - Retail chain identifier
 
 **Output:** JSON with recognition ID and report IDs
 
@@ -217,6 +218,7 @@ go run ./examples/full-workflow/main.go -url "https://example.com/shelf.jpg" -wa
 - `-url` or `-file` (one required) - Image source
 - `-types` (optional, default: "FACING_COUNT") - Comma-separated report types
 - `-wait` (optional, default: true) - Wait for reports to complete
+- `-retail-chain` (optional) - Retail chain identifier
 
 **Output:** Complete workflow with all steps logged
 

@@ -19,6 +19,7 @@ func TestRecognizeService_Recognize(t *testing.T) {
 		Visit:       1,
 		Webhook:     "webhook_test",
 		CountryCode: "RU",
+		RetailChain: "Magnit",
 	}
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

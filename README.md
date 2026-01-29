@@ -89,6 +89,7 @@ resp, err := cli.Recognize.Recognize(ctx, inspector.RecognizeRequest{
 	Images:      []int{img.ID},
 	ReportTypes: []string{inspector.ReportTypeFACING_COUNT, inspector.ReportTypePRICE_TAGS},
 	Webhook:     "https://myapp.example/webhooks/inspector",
+	RetailChain: "Magnit",
 })
 if err != nil {
 	log.Fatalf("recognize failed: %v", err)

@@ -21,6 +21,7 @@ type RecognizeRequest struct {
 	Datetime    *time.Time `json:"datetime,omitempty"`     // date and time of the visit
 	Webhook     string     `json:"webhook,omitempty"`      // reports will be sent by POST request to this URL immediately when ready (one by one).
 	CountryCode string     `json:"country_code,omitempty"` // two-character сountry code to specify from which country the sku on the photo eg 'RU', 'KZ'.
+	RetailChain string     `json:"retail_chain,omitempty"` // retail chain identifier for the store.
 }
 
 // RecognizeResponse represents a payload of response recognize
