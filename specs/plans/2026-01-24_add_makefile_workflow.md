@@ -1,7 +1,7 @@
 # Task: Add Makefile Workflow
 
 **Date:** 2026-01-24  
-**Status:** Planning
+**Status:** Completed
 
 ## Problem Statement
 
@@ -13,21 +13,21 @@ Create a Makefile with common targets, document usage, and ignore generated arti
 
 ## Detailed Steps
 
-1. [ ] Step 1: Author Makefile targets (`fmt`, `lint`, `test`, `build`, `coverage`)
+1. [x] Step 1: Author Makefile targets (`fmt`, `lint`, `test`, `build`, `coverage`)
    - Files: `Makefile`
    - Changes: ensure cross-platform compatibility and configurable variables.
 
-2. [ ] Step 2: Ignore generated artifacts
+2. [x] Step 2: Ignore generated artifacts
    - Files: `.gitignore`
    - Changes: add coverage outputs or binaries built via Makefile.
 
-3. [ ] Step 3: Document workflow
+3. [x] Step 3: Document workflow
    - Files: `README.md`
    - Changes: add contributor instructions referencing Make targets.
 
 ## Testing Strategy
 
-- [ ] Manual testing: run each Make target locally
+- [x] Manual testing: run each Make target locally
 - [ ] CI: optionally invoke Make targets in workflows
 - [ ] No automated tests required
 

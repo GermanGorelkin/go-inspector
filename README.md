@@ -2,11 +2,11 @@
 
 # go-inspector
 
-Go SDK for [Inspector Cloud](https://inspectorcloud.com) retail image recognition API. Provides a service-oriented client with typed helpers for uploads, recognition, reports, SKU data, and visits. Tested on Go 1.24.
+Go SDK for [Inspector Cloud](https://inspector-cloud.ru/) retail image recognition API. Provides a service-oriented client with typed helpers for uploads, recognition, reports, SKU data, and visits. Tested on Go 1.24.
 
 - **Current version:** v1.1.0
 - **License:** MIT
-- **Status:** Production-ready client, still missing direct file upload (URL uploads supported)
+- **Status:** Production-ready client
 
 ## Requirements
 
@@ -184,13 +184,19 @@ Statuses: `ReportStatusNOT_READY`, `ReportStatusREADY`, `ReportStatusERROR`.
 
 ## Development & Testing
 
-Standard workflow (see `AGENTS.md` for full guidelines):
+Standard workflow (see `AGENTS.md` for full guidelines). You can use the included `Makefile` for common tasks:
 
 ```bash
-go fmt ./...
-go vet ./...
-go test ./... -v
-go build ./...
+# Format, lint, test, and build
+make all
+
+# Individual targets
+make fmt        # Format code
+make lint       # Run go vet and gofmt
+make test       # Run tests
+make coverage   # Run tests with coverage report
+make build      # Build library and CLI
+make clean      # Clean up artifacts
 ```
 
 - Run tests on Go 1.24 or newer
