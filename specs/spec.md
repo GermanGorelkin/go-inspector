@@ -513,6 +513,10 @@ export INSTANCE="https://instance.inspector-cloud.ru/api/v1.5/"
 
 **Tags:** v0.5.0 → v1.1.0 (18 versions)
 
+## Active Proposals
+
+- [SDK Modernization and Refinement (2026-01-30)](proposals/2026-01-30_sdk_modernization.md)
+
 ## Support and Resources
 
 - **Documentation:** README.md
