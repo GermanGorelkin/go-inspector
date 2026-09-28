@@ -13,8 +13,9 @@ type RecognizeService struct {
 
 // RecognizeRequest represents a payload of request recognize
 type RecognizeRequest struct {
-	Images      []int    `json:"images"`       // list of IC image IDs
-	ReportTypes []string `json:"report_types"` // list of reports to be generated
+	Images             []int    `json:"images"`                        // list of IC image IDs
+	PanoramaDirections []string `json:"panorama_directions,omitempty"` // camera movement relative to the previous image; order matches Images
+	ReportTypes        []string `json:"report_types"`                  // list of reports to be generated
 
 	Display     int        `json:"display,omitempty"`      // IC Display ID
 	Visit       int        `json:"visit,omitempty"`        // IC Visit ID

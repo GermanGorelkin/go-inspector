@@ -14,12 +14,13 @@ import (
 
 func TestRecognizeService_Recognize(t *testing.T) {
 	recReq := RecognizeRequest{
-		Images:      []int{1, 2, 3},
-		ReportTypes: []string{"FACING_COUN", "PLANOGRAM_COMPLIANCE"},
-		Visit:       1,
-		Webhook:     "webhook_test",
-		CountryCode: "RU",
-		RetailChain: "Magnit",
+		Images:             []int{1, 2, 3},
+		PanoramaDirections: []string{"UNKNOWN", "RIGHT", "BOTTOM"},
+		ReportTypes:        []string{"FACING_COUN", "PLANOGRAM_COMPLIANCE"},
+		Visit:              1,
+		Webhook:            "webhook_test",
+		CountryCode:        "RU",
+		RetailChain:        "Magnit",
 	}
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,10 @@ func TestRecognizeService_Recognize(t *testing.T) {
 		err = json.Unmarshal(b, &got)
 		assert.NoError(t, err)
 		assert.Equal(t, recReq, got)
+		var payload map[string]any
+		err = json.Unmarshal(b, &payload)
+		assert.NoError(t, err)
+		assert.Equal(t, []any{"UNKNOWN", "RIGHT", "BOTTOM"}, payload["panorama_directions"])
 
 		_, err = fmt.Fprintln(w, `{
 				"id": 11,
@@ -63,6 +68,29 @@ func TestRecognizeService_Recognize(t *testing.T) {
 	}
 
 	assert.Equal(t, want, recRes)
+}
+
+func TestRecognizeService_Recognize_OmitsPanoramaDirections(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		b, err := ioutil.ReadAll(r.Body)
+		assert.NoError(t, err)
+		var payload map[string]any
+		err = json.Unmarshal(b, &payload)
+		assert.NoError(t, err)
+		_, present := payload["panorama_directions"]
+		assert.False(t, present)
+		_, err = fmt.Fprintln(w, `{"id":11,"scene":"scene","reports":{}}`)
+		assert.NoError(t, err)
+	}))
+	defer ts.Close()
+
+	client, err := NewClient(ClintConf{Instance: ts.URL})
+	assert.NoError(t, err)
+	_, err = client.Recognize.Recognize(context.Background(), RecognizeRequest{
+		Images:      []int{1},
+		ReportTypes: []string{"FACING_COUNT"},
+	})
+	assert.NoError(t, err)
 }
 
 func TestRecognizeService_RecognitionError(t *testing.T) {

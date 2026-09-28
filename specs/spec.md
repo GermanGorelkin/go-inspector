@@ -88,8 +88,9 @@ type Image struct {
 **Request:**
 ```go
 type RecognizeRequest struct {
-    Images      []int      // List of IC image IDs
-    ReportTypes []string   // Types of reports to generate
+    Images             []int      // List of IC image IDs
+    PanoramaDirections []string   // Optional; camera movement for each image, in Images order
+    ReportTypes        []string   // Types of reports to generate
     Display     int        // Display ID (optional)
     Visit       int        // Visit ID (optional)
     Datetime    *time.Time // Recognition timestamp (optional)
